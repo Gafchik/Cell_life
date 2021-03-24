@@ -46,16 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cell_Model\Cell_Base\Cell.cs" />
-    <Compile Include="Cell_Model\Cell_Base\I_Cell.cs" />
-    <Compile Include="Cell_Model\Cell_Genus.cs" />
-    <Compile Include="Cell_Model\I_Cell_Genus.cs" />
+    <Compile Include="Cell_Control\Cell_Conrol.cs" />
+    <Compile Include="Cell_Control\I_Cell_Control.cs" />
+    <Compile Include="Model\Cell_Base\Cell.cs" />
+    <Compile Include="Model\Cell_Base\I_Cell.cs" />
+    <Compile Include="Model\Cell_Genom\Cell_Genome.cs" />
+    <Compile Include="Model\Cell_Genom\I_Cell_Genus.cs" />
     <Compile Include="Cell_View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cell_View\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Game_Model\Cell_Genoms.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Cell_View\Form1.resx">
@@ -70,9 +73,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram3.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -86,8 +86,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Cell_Control\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

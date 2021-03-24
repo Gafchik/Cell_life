@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cell_life.Cell_Model
+namespace Cell_life.Cell_Control
 {
-    interface I_Cell_Genus
+    interface I_Cell_Control
     {
-        void Add_Child();
-        bool Is_Die();
+        void Create_genom();
+        void Info_cell();
     }
 }

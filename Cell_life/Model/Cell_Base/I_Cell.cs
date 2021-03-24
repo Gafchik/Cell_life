@@ -10,7 +10,7 @@ namespace Cell_life.Cell_Model.Cell_Base
     {
         void Move();
         void Old();
-        void Get_Generation();
+        int Get_Cout_Generation();
         void Die();
         void Eat();
     }
