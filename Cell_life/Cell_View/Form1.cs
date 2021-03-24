@@ -65,6 +65,7 @@ namespace Cell_life
             {
                 foreach (Cell cell in genome.cells_genom)
                 {
+                   
                     pen_life.Color = cell.color_leve;
                     pen_die.Color = cell.color_died;
                     e.Graphics.DrawRectangle(cell.Age < cell.time_life - 20 ? pen_life : pen_die, new Rectangle(cell.location, cell.size));
