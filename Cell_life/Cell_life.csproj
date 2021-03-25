@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="Cell_Control\Cell_Conrol.cs" />
     <Compile Include="Cell_Control\I_Cell_Control.cs" />
+    <Compile Include="Cell_View\Form_InfoCell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cell_View\Form_InfoCell.Designer.cs">
+      <DependentUpon>Form_InfoCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Cell_Base\Cell.cs" />
     <Compile Include="Model\Cell_Base\I_Cell.cs" />
     <Compile Include="Model\Cell_Genom\Cell_Genome.cs" />
@@ -64,6 +70,9 @@
     <EmbeddedResource Include="Cell_View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cell_View\Form_InfoCell.resx">
+      <DependentUpon>Form_InfoCell.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -72,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

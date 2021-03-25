@@ -24,9 +24,9 @@ namespace Cell_life.Cell_Model
             cells_genom.Add(new Cell(cells_genom.Count+1, id_genom, color, point));
         }
 
-        internal void Mowe()
+        internal void Mowe(Point point_zero_to_fild,Size size_field)
         {
-            try { cells_genom.ForEach(i => i.Move()); }
+            try { cells_genom.ForEach(i => i.Move(point_zero_to_fild, size_field)); }
             catch (Exception) { }
         }
 
@@ -51,7 +51,10 @@ namespace Cell_life.Cell_Model
             catch (Exception) { }
         }
 
-      
+        internal void Live() => time_life_genom++;
+
+
+
         public bool Is_Die() => cells_genom.Count == 0 ? true : false;
        
     }
