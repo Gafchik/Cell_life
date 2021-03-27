@@ -16,28 +16,21 @@ namespace Cell_life.Cell_Control
     class Cell_Conrol
     {
         public void Create_genom(Color backColor, Point point) => Game_elements.genus.Add(new Cell_Genome(Game_elements.genus.Count+1,backColor, point));
-
-        public void Kill_My(Cell cell)
+        public void Kill_Cell(Cell cell)
         {
-            lock (this)
-            {
-                for (int i = 0; i < 3; i++)
-                { Game_elements.eats.Add(new Eat(cell)); }
-
-                
-                Game_elements.genus.ForEach(i => i.cells_genom.Remove(cell));
-            }
-        }
-       
-
+            Game_elements.foods.AddRange(new Food[]
+            { 
+                new Food(new Point(cell.location.X+10, cell.location.Y)),
+                new Food(new Point(cell.location.X, cell.location.Y+10)),
+                new Food(new Point(cell.location.X-10, cell.location.Y)),
+                new Food(new Point(cell.location.X, cell.location.Y-10))
+            });
+            Game_elements.genus.ForEach(i => i.cells_genom.Remove(cell));
+        }    
         internal void Old() { lock (this) { Game_elements.genus.ForEach(i => i.Old()); cleaning(); Game_elements.genus.ForEach(i => i.Live()); } }
-
         internal void Mowe(Point point_zero_to_fild, Size size_field) { lock (this) { Game_elements.genus.ForEach(i => i.Mowe(point_zero_to_fild, size_field)); } }
         internal void Get_child() { lock (this) { Game_elements.genus.ForEach(i => i.Get_Child()); } }
-
-
         void cleaning() { lock (this) { Game_elements.genus.RemoveAll(i => i.cells_genom.Count == 0); } }
-
         internal void Get_Cell_Info(Point mousePosition)
         {
             int radius = 10;
@@ -61,8 +54,7 @@ namespace Cell_life.Cell_Control
              
             } 
         }
-
+        internal void Eat(Food food) => Game_elements.foods.Remove(food);     
         internal void Kill_All() => Game_elements.genus.Clear();
-
     }
 }

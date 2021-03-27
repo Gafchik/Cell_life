@@ -69,7 +69,8 @@ namespace Cell_life
             if (e.Button == MouseButtons.Left)
                 control.Create_genom(panel_color.BackColor, panel_game.PointToClient(Cursor.Position));
             if (e.Button == MouseButtons.Right)
-                control.Get_Cell_Info(panel_game.PointToClient(Cursor.Position));
+                // control.Get_Cell_Info(panel_game.PointToClient(Cursor.Position));
+                Game_elements.foods.Add(new Food(panel_game.PointToClient(Cursor.Position)));
         }
         private void Panel_game_Paint(object sender, PaintEventArgs e)
         {
@@ -82,7 +83,7 @@ namespace Cell_life
                     e.Graphics.DrawRectangle(cell.Age < cell.time_life - 2 ?new Pen( cell.color_leve,5) : new Pen(cell.color_died,5), new Rectangle(cell.location, cell.size));
                 }
             }
-            foreach (Eat eat in Game_elements.eats)
+            foreach (Food eat in Game_elements.foods)
             {
                 e.Graphics.DrawEllipse(new Pen(eat.color_leve,5),new Rectangle(eat.location, eat.size));
             }

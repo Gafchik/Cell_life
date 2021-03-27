@@ -11,6 +11,6 @@ namespace Cell_life.Model.Game_Model
     public static class Game_elements
     {
         public static List<Cell_Genome> genus = new List<Cell_Genome>();
-        public static List<Eat> eats = new List<Eat>();
+        public static List<Food> foods = new List<Food>();
     }
 }
