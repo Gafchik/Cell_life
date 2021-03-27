@@ -62,10 +62,8 @@ namespace Cell_life.Cell_View
         }
 
 
-        private void Button_Eat_Click(object sender, EventArgs e)
-        {
-           
-        }
+        private void Button_Eat_Click(object sender, EventArgs e) => This_cell.Eat();
+       
 
         private void Button_KILL_Click(object sender, EventArgs e) => This_cell.Die();
        

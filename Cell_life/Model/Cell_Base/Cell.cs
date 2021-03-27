@@ -50,20 +50,20 @@ namespace Cell_life.Cell_Model.Cell_Base
 
 
         public void Die() => control.Kill_My(this);
-        public void Eat() => time_to_death = time_to_death + 3;
+        public void Eat() { time_life += 3; time_to_death +=3; }
         public int Get_Cout_Generation()
         {
             int rez = random.Next(0, 100);
-            if (rez >= 0 && rez <= 88)
+            if (rez >= 0 && rez <= 90)
                 return 0;
-            if (rez >= 92 && rez <= 94)
+            if (rez >= 91 && rez <= 93)
                 return 1;
-            if (rez >= 95 && rez <= 97)
+            if (rez >= 94 && rez <= 96)
                 return 2;
-            if (rez >= 98 && rez <= 100)
+            if (rez >= 97 && rez <= 100)
                 return 3;
             else
-                return 4;
+                return 0;
         }
         public void Move(Point point_zero_to_fild, Size size_field)
         {
@@ -82,13 +82,13 @@ namespace Cell_life.Cell_Model.Cell_Base
                         location = new Point(location.X, location.Y - move_step);
                     break;
                 case 2:
-                    if (location.X - move_step >= point_zero_to_fild.X + 20)
+                    if (location.X - move_step >= point_zero_to_fild.X + 70)
                         location = new Point(location.X - move_step, location.Y);
                     else
                         location = new Point(location.X + move_step, location.Y);
                     break;
                 case 3:
-                    if (location.Y - move_step >= point_zero_to_fild.Y + 20)
+                    if (location.Y - move_step >= point_zero_to_fild.Y + 50)
                         location = new Point(location.X, location.Y - move_step);
                     else
                         location = new Point(location.X, location.Y + move_step);
