@@ -64,6 +64,7 @@
     <Compile Include="Cell_View\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Eat_Model\Eat.cs" />
     <Compile Include="Model\Game_Model\Cell_Genoms.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

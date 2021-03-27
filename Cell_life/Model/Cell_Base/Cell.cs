@@ -35,15 +35,15 @@ namespace Cell_life.Cell_Model.Cell_Base
             this.id_genom = id_genom;
             control = new Cell_Conrol();
             random = new Random();
-            size = new Size(5, 5);
+            size = new Size(10, 10);
             location = new Point(point.X, point.Y);
             this.id = id;
-            this.time_to_death = this.time_life = 20;
-            this.count_genom = 0;
+            time_to_death = this.time_life = 20;
+            count_genom = 0;
             Age = 0;
-            this.id_childs = new List<int>();
-            this.id_parent = new List<int>();
-            this.color_leve = color;
+            id_childs = new List<int>();
+            id_parent = new List<int>();
+            color_leve = color;
             color_died = Color.Red;
             move_step = 5;
         }
