@@ -13,8 +13,7 @@ using System.Windows.Forms;
 namespace Cell_life.Cell_View
 {
     public partial class Form_InfoCell : Form
-    {
-        Cell_Genome This_genome;
+    {        
         Cell This_cell;
         Color color;
         public Form_InfoCell()
@@ -22,10 +21,9 @@ namespace Cell_life.Cell_View
             InitializeComponent();
         }
 
-        public Form_InfoCell(Cell_Genome genome, Cell cell)
+        public Form_InfoCell( Cell cell)
         {
             InitializeComponent();
-            This_genome = genome;
             This_cell = cell;
             color = cell.color_leve;
 
@@ -35,7 +33,7 @@ namespace Cell_life.Cell_View
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
             //Eat_textBox
             color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
-            Time_live_genom_textBox.Text = This_genome.time_life_genom.ToString();
+            Time_live_genom_textBox.Text = Cell_Genome.time_life_genom.ToString();
             time_live_textBox.Text = This_cell.time_life.ToString();
             Id_textBox.Text = This_cell.id.ToString();
 
@@ -56,8 +54,8 @@ namespace Cell_life.Cell_View
         {
             for (int i = 0; i < This_cell.Get_Cout_Generation(); i++)
             {
-                This_genome.cells_genom.Add(new Cell(This_genome.cells_genom.Count + 1, This_genome.id_genom, This_cell.color_leve, new Point(This_cell.location.X + 1, This_cell.location.Y + 1)));
-                This_cell.id_childs.Add(This_genome.cells_genom.Count);
+                Cell_Genome.cells_genom.Add(new Cell(Cell_Genome.cells_genom.Count + 1, This_cell.color_leve, new Point(This_cell.location.X + 1, This_cell.location.Y + 1)));
+                This_cell.id_childs.Add(Cell_Genome.cells_genom.Count);
             }
         }
 
@@ -77,7 +75,7 @@ namespace Cell_life.Cell_View
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
             //Eat_textBox
             color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
-            Time_live_genom_textBox.Text = This_genome.time_life_genom.ToString();
+            Time_live_genom_textBox.Text = Cell_Genome.time_life_genom.ToString();
             time_live_textBox.Text = This_cell.time_life.ToString();
             Id_textBox.Text = This_cell.id.ToString();
         }

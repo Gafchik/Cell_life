@@ -1,6 +1,5 @@
 ﻿using Cell_life.Cell_Control;
 using Cell_life.Model.Eat_Model;
-using Cell_life.Model.Game_Model;
 using Cell_life.Properties;
 using System;
 using System.Collections.Generic;
@@ -16,8 +15,7 @@ namespace Cell_life.Cell_Model.Cell_Base
     {
         Cell_Conrol control;
         public Random random;
-        public int id { get; set; }
-        public int id_genom { get; set; }
+        public int id { get; set; }   
         public Point location { get; set; }
         public Size size { get; set; }
         public int Age { get; private set; }
@@ -30,11 +28,11 @@ namespace Cell_life.Cell_Model.Cell_Base
         public Color color_died { get; set; }
         public int move_step { get; set; }
         public int vision { get; set; }
+        public Food found_food { get; set; }
 
 
-        public Cell(int id, int id_genom, Color color, Point point)
-        {
-            this.id_genom = id_genom;
+        public Cell(int id,  Color color, Point point)
+        {           
             control = new Cell_Conrol();
             random = new Random();
             size = new Size(10, 10);
@@ -49,6 +47,7 @@ namespace Cell_life.Cell_Model.Cell_Base
             color_died = Color.Red;
             move_step = 5;
             vision = 200;
+            found_food = null;
         }
 
 
@@ -59,6 +58,7 @@ namespace Cell_life.Cell_Model.Cell_Base
             control.Eat(food);
             time_life += 3;
             time_to_death += 3;
+            found_food = null;
         }
         public int Get_Cout_Generation()
         {
@@ -150,30 +150,28 @@ namespace Cell_life.Cell_Model.Cell_Base
 
 
         }
-        private bool Search_Eat(out Food found_food )
-        {
-           
+        public void Search_Eat( )
+        {          
             lock (this)
             {
                 for (int i = vision - (vision * 2); i <= (vision * 2) + 1; i++)
                 {
                     for (int j = vision - (vision * 2); j <= (vision * 2) + 1; j++)
                     {
-                        if (Game_elements.foods.Exists(q => q.location.X == location.X + i & q.location.Y == location.Y + j))
-                        {
-                            found_food = Game_elements.foods.Find(q => q.location.X == location.X + i & q.location.Y == location.Y + j);
-                            return true;
+                        if (Cell_Genome.foods.Exists(q => q.location.X == location.X + i & q.location.Y == location.Y + j))
+                        {    
+                            found_food = Cell_Genome.foods.Find(q => q.location.X == location.X + i & q.location.Y == location.Y + j);
+                            break;
                         }
                     }
                 }
-                found_food = null;
-                return false;
+               
+              
             }
         }
         public void Move(Point point_zero_to_fild, Size size_field)
         {
-            Food found_food;
-            if (Search_Eat(out found_food))
+            lock (this)
             {
                 if (found_food != null)
                 {
@@ -185,8 +183,6 @@ namespace Cell_life.Cell_Model.Cell_Base
                 else
                     No_Food_Move(point_zero_to_fild, size_field);
             }
-            else
-                No_Food_Move(point_zero_to_fild, size_field);
         }
         public void Old()
         {

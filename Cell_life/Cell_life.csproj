@@ -65,7 +65,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Eat_Model\Food.cs" />
-    <Compile Include="Model\Game_Model\Game_elements.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Cell_View\Form1.resx">
