@@ -13,10 +13,10 @@ namespace Cell_life.Cell_Model.Cell_Base
 {
     public enum Eirection { up,up_right,right,right_down,down,down_left,left,left_up}
     public class Cell
-    {
+    { 
         Cell_Conrol control;
         public Random random;
-        public int id { get; set; }   
+        public int id { get; set; }
         public Point location { get; set; }
         public Size size { get; set; }
         public int Age { get; private set; }
@@ -31,13 +31,13 @@ namespace Cell_life.Cell_Model.Cell_Base
         public int vision { get; set; }
         public Food found_food { get; set; }
         public Eirection eirection { get; set; }
-      private  Timer timer_life ;
-        private Timer timer_child ;
+        private Timer timer_life;
+        private Timer timer_child;
         private Timer timer_food;
         private Timer timer_next;
 
 
-        public Cell(int id,  Color color, Point point)
+        public Cell(int id, Color color, Point point)
         {
             control = new Cell_Conrol();
             random = new Random();
@@ -77,7 +77,6 @@ namespace Cell_life.Cell_Model.Cell_Base
             timer_next.Start();
 
         }
-
         private void Timer_next_Tick(object sender, EventArgs e) => eirection = (Eirection)random.Next(7);
         private void Timer_child_Tick(object sender, EventArgs e)
         {
@@ -94,11 +93,21 @@ namespace Cell_life.Cell_Model.Cell_Base
                 catch (Exception) { }
             }
         }
-     private void Timer_food_Tick(object sender, EventArgs e) => Search_Eat();
+        private void Timer_food_Tick(object sender, EventArgs e) => Search_Eat();
         private void Timer_life_Tick(object sender, EventArgs e) => Old();
+        public void Die()
+        {
+            Cells.foods.Add(new Food(new Point(this.location.X - 10, this.location.Y + 10)));
+            timer_life.Stop();
+            timer_child.Stop();
+            timer_food.Stop();
+            timer_next.Stop();
+            
 
-        public void Die() => control.Kill_Cell(this);
-        public void Feed() { time_life += 3; time_to_death +=3; }
+            Cells.cells.Remove(this);
+            // control.Kill_Cell(id);
+        }
+        public void Feed() { time_life += 3; time_to_death += 3; }
         public void Eat(Food food)
         {
             control.Eat(food);
@@ -129,7 +138,7 @@ namespace Cell_life.Cell_Model.Cell_Base
                         location = new Point(location.X, location.Y - move_step);
                     else
                     {
-                      this.eirection = Eirection.down;
+                        this.eirection = Eirection.down;
                         location = new Point(location.X, location.Y + move_step);
                     }
                     break;
@@ -137,7 +146,7 @@ namespace Cell_life.Cell_Model.Cell_Base
                 case Eirection.up_right:
                     if (location.Y - move_step >= point_zero_to_fild.Y + 20)
                         if (location.X + move_step <= point_zero_to_fild.X + size_field.Width - 100)
-                        { 
+                        {
                             location = new Point(location.X + move_step, location.Y - move_step);
                         }
                         else
@@ -239,13 +248,13 @@ namespace Cell_life.Cell_Model.Cell_Base
             int step_to_food_X, step_to_food_Y, last_step_X, last_step_Y;
             step_to_food_X = step_to_food_Y = last_step_X = last_step_Y = 0;
             //X
-            if(location.X>found_food.location.X)
+            if (location.X > found_food.location.X)
             {
                 last_step_X = (location.X - found_food.location.X) % move_step;
                 if ((location.X - found_food.location.X) < move_step)
-                    step_to_food_X = last_step_X - (last_step_X * 2); 
+                    step_to_food_X = last_step_X - (last_step_X * 2);
                 else
-                    step_to_food_X = move_step-(move_step*2);
+                    step_to_food_X = move_step - (move_step * 2);
             }
             if (location.X < found_food.location.X)
             {
@@ -272,34 +281,31 @@ namespace Cell_life.Cell_Model.Cell_Base
                 else
                     step_to_food_Y = move_step;
             }
-            location = new Point(location.X+step_to_food_X, location.Y+step_to_food_Y);
+            location = new Point(location.X + step_to_food_X, location.Y + step_to_food_Y);
 
 
         }
-        public void Search_Eat( )
-        {          
+        public void Search_Eat()
+        {
             lock (this)
             {
-               
                 for (int i = vision - (vision * 2); i <= (vision * 2) + 1; i++)
                 {
                     for (int j = vision - (vision * 2); j <= (vision * 2) + 1; j++)
                     {
                         if (Cells.foods.Exists(q => q.location.X == location.X + i & q.location.Y == location.Y + j))
-                        {    
+                        {
                             found_food = Cells.foods.Find(q => q.location.X == location.X + i & q.location.Y == location.Y + j);
                             break;
                         }
                     }
                 }
-               
-              
             }
         }
         public void Move(Point point_zero_to_fild, Size size_field)
         {
-            lock (this)
-            {
+          //  lock (this)
+          //  {
                 if (found_food != null)
                 {
                     if (location != found_food.location)
@@ -309,7 +315,7 @@ namespace Cell_life.Cell_Model.Cell_Base
                 }
                 else
                     No_Food_Move(point_zero_to_fild, size_field, eirection);
-            }
+         //   }
         }
         public void Old()
         {
@@ -318,6 +324,7 @@ namespace Cell_life.Cell_Model.Cell_Base
             else
                 Die();
         }
-    }
 
+       
+    }
 }

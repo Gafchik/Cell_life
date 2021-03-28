@@ -11,22 +11,18 @@ namespace Cell_life.Model.Eat_Model
 {
    public class Food
     {
-        public Random random;
 
         public Food(Point point)
         {
-            random = new Random();
             size = new Size(5, 5);
             color_leve = Color.Green;
             callory = 3;
-            scatter = 0;
             location = point;
         }              
         public Point location { get; set; }
         public Size size { get; set; }
         public Color color_leve { get; set; }
         public int callory { get; set; }
-        public int scatter { get; set; }
 
     }
 }

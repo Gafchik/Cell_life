@@ -50,8 +50,11 @@ namespace Cell_life
         private void Button_Kill_All_Click(object sender, EventArgs e) => control.Kill_All();
         private void Timer_move_Tick(object sender, EventArgs e)
         {
-            panel_game.Refresh();
-            control.Mowe(panel_game.PointToScreen(panel_game.Location), panel_game.Size);
+            lock (this)
+            {
+                panel_game.Refresh();
+                control.Mowe(panel_game.PointToScreen(panel_game.Location), panel_game.Size);
+            }
         }
         private void Panel_game_MouseClick(object sender, MouseEventArgs e)
         {
@@ -62,45 +65,24 @@ namespace Cell_life
             if (e.Button == MouseButtons.Middle)
                 Cells.foods.Add(new Food(panel_game.PointToClient(Cursor.Position)));
         }
-        private async void Panel_game_Paint(object sender, PaintEventArgs e)
+        private  void Panel_game_Paint(object sender, PaintEventArgs e)
         {
-            /* int length;
-             if (Cells.cells.Count >= Cells.foods.Count)
-                 length = Cells.cells.Count;
-             else
-                 length = Cells.foods.Count;
-             for (int i = 0; i < length; i++)
-             {
-
-                 try
-                 {
-                 Brash_life.Color = Cells.cells[i].color_leve;
-                 Brash_die.Color = Cells.cells[i].color_died;
-                     e.Graphics.FillEllipse(Cells.cells[i].Age < Cells.cells[i].time_life - 2 ? Brash_life : Brash_die, new Rectangle(Cells.cells[i].location, Cells.cells[i].size));                
-                 }
-                 catch (Exception) { }
-                 try
-                 {                  
-                     e.Graphics.FillEllipse(Brash_foot, new Rectangle(Cells.foods[i].location, Cells.foods[i].size));
-                 }
-                 catch (Exception) { }
-
-
-             }*/
-            foreach (Food eat in Cells.foods)
+            lock (this)
             {
-                e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
+                foreach (Food eat in Cells.foods)
+                {
+                    e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
+                }
             }
-
-            foreach (Cell cell in Cells.cells)
+            lock (this)
             {
-                Brash_life.Color = cell.color_leve;
-                Brash_die.Color = cell.color_died;
-                e.Graphics.FillEllipse(cell.Age < cell.time_life - 2 ? Brash_life : Brash_die, new Rectangle(cell.location, cell.size));
+                foreach (Cell cell in Cells.cells)
+                {
+                    Brash_life.Color = cell.color_leve;
+                    Brash_die.Color = cell.color_died;
+                    e.Graphics.FillEllipse(cell.Age < cell.time_life - 2 ? Brash_life : Brash_die, new Rectangle(cell.location, cell.size));
+                }
             }
-
-
-
         }
         private void Button_color_Click(object sender, EventArgs e)
         {
@@ -108,30 +90,6 @@ namespace Cell_life
             if (dialog.ShowDialog() == DialogResult.OK)
             { panel_color.BackColor = dialog.Color; Brash_life.Color = dialog.Color; }
             GC.Collect(GC.GetGeneration(dialog));
-        }
-        private void Graphics_cell(PaintEventArgs e)
-        {
-            foreach (Cell cell in Cells.cells)
-            {
-                try
-                {
-                    Brash_life.Color = cell.color_leve;
-                    Brash_die.Color = cell.color_died;
-                    e.Graphics.FillEllipse(cell.Age < cell.time_life - 2 ? Brash_life : Brash_die, new Rectangle(cell.location, cell.size));
-                }
-                catch (Exception) { }
-            }
-        }
-        private void Graphics_food(PaintEventArgs e)
-        {
-            foreach (Food eat in Cells.foods)
-            {
-                try
-                {
-                    e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
-                }
-                catch (Exception) { }
-            }
-        }
+        }     
     }
 }
