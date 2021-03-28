@@ -36,35 +36,19 @@ namespace Cell_life
             panel_game.MouseClick += Panel_game_MouseClick;
             panel_game.Paint += Panel_game_Paint;
             button_Kill_All.Click += Button_Kill_All_Click;
-           
+
             Timer timer_move = new Timer();
             timer_move.Tick += Timer_move_Tick;
             timer_move.Interval = 50;
             timer_move.Start();
 
-            Timer timer_life = new Timer();
-            timer_life.Tick += Timer_life_Tick;
-            timer_life.Interval = 1000;
-            timer_life.Start();
 
-            Timer timer_child = new Timer();
-            timer_child.Tick += Timer_child_Tick;
-            timer_child.Interval = 5000;
-            timer_child.Start();
-
-            Timer timer_food = new Timer();
-            timer_food.Tick += Timer_food_Tick;
-            timer_food.Interval = 100;
-            timer_food.Start();
 
         }
 
-        private void Timer_child_Tick(object sender, EventArgs e) => control.Get_child();
-        private void Timer_food_Tick(object sender, EventArgs e) => control.Serch_Food();
 
-        private void Button_Kill_All_Click(object sender, EventArgs e) => control.Kill_All();    
-        private  void Timer_life_Tick(object sender, EventArgs e) => control.Old();     
-        private  void Timer_move_Tick(object sender, EventArgs e)
+        private void Button_Kill_All_Click(object sender, EventArgs e) => control.Kill_All();
+        private void Timer_move_Tick(object sender, EventArgs e)
         {
             panel_game.Refresh();
             control.Mowe(panel_game.PointToScreen(panel_game.Location), panel_game.Size);
@@ -76,45 +60,78 @@ namespace Cell_life
             if (e.Button == MouseButtons.Right)
                 control.Get_Cell_Info(panel_game.PointToClient(Cursor.Position));
             if (e.Button == MouseButtons.Middle)
-                Cell_Genome.foods.Add(new Food(panel_game.PointToClient(Cursor.Position)));
+                Cells.foods.Add(new Food(panel_game.PointToClient(Cursor.Position)));
         }
-        private void Panel_game_Paint(object sender, PaintEventArgs e)
+        private async void Panel_game_Paint(object sender, PaintEventArgs e)
         {
-            /*Point p;
-            for (int i = 0; i < ClientSize.Height; i++)
+            /* int length;
+             if (Cells.cells.Count >= Cells.foods.Count)
+                 length = Cells.cells.Count;
+             else
+                 length = Cells.foods.Count;
+             for (int i = 0; i < length; i++)
+             {
+
+                 try
+                 {
+                 Brash_life.Color = Cells.cells[i].color_leve;
+                 Brash_die.Color = Cells.cells[i].color_died;
+                     e.Graphics.FillEllipse(Cells.cells[i].Age < Cells.cells[i].time_life - 2 ? Brash_life : Brash_die, new Rectangle(Cells.cells[i].location, Cells.cells[i].size));                
+                 }
+                 catch (Exception) { }
+                 try
+                 {                  
+                     e.Graphics.FillEllipse(Brash_foot, new Rectangle(Cells.foods[i].location, Cells.foods[i].size));
+                 }
+                 catch (Exception) { }
+
+
+             }*/
+            foreach (Food eat in Cells.foods)
             {
-                for (int j = 0; j < ClientSize.Width; j++)
-                {
-                    p = new Point(i, j);
-                    var C = Cell_Genome.cells_genom.Find(q => q.location == p);
-                    try
-                    {
-                        Brash_life.Color = C.color_leve;
-                        Brash_die.Color = C.color_died;
-                        e.Graphics.FillEllipse(C.Age < C.time_life - 2 ? Brash_life : Brash_die, new Rectangle(C.location, C.size));
-                    }
-                    catch (Exception) { }
-                }
-            }*/
-            foreach (Cell cell in Cell_Genome.cells_genom)
+                e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
+            }
+
+            foreach (Cell cell in Cells.cells)
             {
                 Brash_life.Color = cell.color_leve;
                 Brash_die.Color = cell.color_died;
                 e.Graphics.FillEllipse(cell.Age < cell.time_life - 2 ? Brash_life : Brash_die, new Rectangle(cell.location, cell.size));
             }
 
-            foreach (Food eat in Cell_Genome.foods)
-            {
-                e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
-            }
 
-        }   
+
+        }
         private void Button_color_Click(object sender, EventArgs e)
         {
             ColorDialog dialog = new ColorDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             { panel_color.BackColor = dialog.Color; Brash_life.Color = dialog.Color; }
             GC.Collect(GC.GetGeneration(dialog));
+        }
+        private void Graphics_cell(PaintEventArgs e)
+        {
+            foreach (Cell cell in Cells.cells)
+            {
+                try
+                {
+                    Brash_life.Color = cell.color_leve;
+                    Brash_die.Color = cell.color_died;
+                    e.Graphics.FillEllipse(cell.Age < cell.time_life - 2 ? Brash_life : Brash_die, new Rectangle(cell.location, cell.size));
+                }
+                catch (Exception) { }
+            }
+        }
+        private void Graphics_food(PaintEventArgs e)
+        {
+            foreach (Food eat in Cells.foods)
+            {
+                try
+                {
+                    e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
+                }
+                catch (Exception) { }
+            }
         }
     }
 }

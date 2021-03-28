@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Cell_life.Cell_Model
 {
-   public class Cell_Genome
+   public class Cells
     {
         public static List<Food> foods;
         public static int time_life_genom { get; set; }
         public Color color { get; set; }
         public  int id_genom { get; set; }
-        public static  List<Cell> cells_genom { get; set; }
+        public static  List<Cell> cells { get; set; }
 
-        static Cell_Genome()
+        static Cells()
         {
-            cells_genom = new List<Cell>();
+            cells = new List<Cell>();
             foods = new List<Food>();
         }
-        public Cell_Genome(int id_genom ,Color color,Point point)
+        public Cells(int id_genom ,Color color,Point point)
         {
             time_life_genom = 0;
             this.color = color;
@@ -33,7 +33,7 @@ namespace Cell_life.Cell_Model
 
         public void Old()
         {
-            try { cells_genom.ForEach(i => i.Old()); }
+            try { cells.ForEach(i => i.Old()); }
             catch (Exception) { }
         }
       
@@ -42,9 +42,9 @@ namespace Cell_life.Cell_Model
 
 
 
-        public bool Is_Die() => cells_genom.Count == 0 ? true : false;
+        public bool Is_Die() => cells.Count == 0 ? true : false;
 
-        internal void Serch_Food() => cells_genom.ForEach(i => i.Search_Eat());
+        internal void Serch_Food() => cells.ForEach(i => i.Search_Eat());
 
     }
 }

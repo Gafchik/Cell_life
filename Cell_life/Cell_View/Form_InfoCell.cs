@@ -33,7 +33,7 @@ namespace Cell_life.Cell_View
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
             //Eat_textBox
             color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
-            Time_live_genom_textBox.Text = Cell_Genome.time_life_genom.ToString();
+            Time_live_genom_textBox.Text = Cells.time_life_genom.ToString();
             time_live_textBox.Text = This_cell.time_life.ToString();
             Id_textBox.Text = This_cell.id.ToString();
 
@@ -54,8 +54,8 @@ namespace Cell_life.Cell_View
         {
             for (int i = 0; i < This_cell.Get_Cout_Generation(); i++)
             {
-                Cell_Genome.cells_genom.Add(new Cell(Cell_Genome.cells_genom.Count + 1, This_cell.color_leve, new Point(This_cell.location.X + 1, This_cell.location.Y + 1)));
-                This_cell.id_childs.Add(Cell_Genome.cells_genom.Count);
+                Cells.cells.Add(new Cell(Cells.cells.Count + 1, This_cell.color_leve, new Point(This_cell.location.X + 1, This_cell.location.Y + 1)));
+                This_cell.id_childs.Add(Cells.cells.Count);
             }
         }
 
@@ -75,7 +75,7 @@ namespace Cell_life.Cell_View
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
             //Eat_textBox
             color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
-            Time_live_genom_textBox.Text = Cell_Genome.time_life_genom.ToString();
+            Time_live_genom_textBox.Text = Cells.time_life_genom.ToString();
             time_live_textBox.Text = This_cell.time_life.ToString();
             Id_textBox.Text = This_cell.id.ToString();
         }

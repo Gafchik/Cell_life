@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace Cell_life.Cell_Model.Cell_Base
 {
+    public enum Eirection { up,up_right,right,right_down,down,down_left,left,left_up}
     public class Cell
     {
         Cell_Conrol control;
@@ -29,12 +30,18 @@ namespace Cell_life.Cell_Model.Cell_Base
         public int move_step { get; set; }
         public int vision { get; set; }
         public Food found_food { get; set; }
+        public Eirection eirection { get; set; }
+      private  Timer timer_life ;
+        private Timer timer_child ;
+        private Timer timer_food;
+        private Timer timer_next;
 
 
         public Cell(int id,  Color color, Point point)
-        {           
+        {
             control = new Cell_Conrol();
             random = new Random();
+            eirection = (Eirection)random.Next(7);
             size = new Size(10, 10);
             location = new Point(point.X, point.Y);
             this.id = id;
@@ -48,8 +55,47 @@ namespace Cell_life.Cell_Model.Cell_Base
             move_step = 5;
             vision = 200;
             found_food = null;
+
+            timer_life = new Timer();
+            timer_life.Tick += Timer_life_Tick;
+            timer_life.Interval = 1000;
+            timer_life.Start();
+
+            timer_child = new Timer();
+            timer_child.Tick += Timer_child_Tick;
+            timer_child.Interval = 5000;
+            timer_child.Start();
+
+            timer_food = new Timer();
+            timer_food.Tick += Timer_food_Tick;
+            timer_food.Interval = 100;
+            timer_food.Start();
+
+            timer_next = new Timer();
+            timer_next.Tick += Timer_next_Tick;
+            timer_next.Interval = 3000;
+            timer_next.Start();
+
         }
 
+        private void Timer_next_Tick(object sender, EventArgs e) => eirection = (Eirection)random.Next(7);
+        private void Timer_child_Tick(object sender, EventArgs e)
+        {
+            lock (this)
+            {
+                try
+                {
+                    for (int i = 0; i < Get_Cout_Generation(); i++)
+                    {
+                        Cells.cells.Add(new Cell(Cells.cells.Count + 1, color_leve, new Point(location.X + 1, location.Y + 1)));
+                        id_childs.Add(Cells.cells.Count);
+                    }
+                }
+                catch (Exception) { }
+            }
+        }
+     private void Timer_food_Tick(object sender, EventArgs e) => Search_Eat();
+        private void Timer_life_Tick(object sender, EventArgs e) => Old();
 
         public void Die() => control.Kill_Cell(this);
         public void Feed() { time_life += 3; time_to_death +=3; }
@@ -74,35 +120,115 @@ namespace Cell_life.Cell_Model.Cell_Base
             else
                 return 0;
         }
-        private void No_Food_Move(Point point_zero_to_fild, Size size_field)
+        private void No_Food_Move(Point point_zero_to_fild, Size size_field, Eirection eirection)
         {
-            switch (random.Next(0, 3))
+            switch (eirection)
             {
-                case 0:
+                case Eirection.up:
+                    if (location.Y - move_step >= point_zero_to_fild.Y + 20)
+                        location = new Point(location.X, location.Y - move_step);
+                    else
+                    {
+                      this.eirection = Eirection.down;
+                        location = new Point(location.X, location.Y + move_step);
+                    }
+                    break;
+
+                case Eirection.up_right:
+                    if (location.Y - move_step >= point_zero_to_fild.Y + 20)
+                        if (location.X + move_step <= point_zero_to_fild.X + size_field.Width - 100)
+                        { 
+                            location = new Point(location.X + move_step, location.Y - move_step);
+                        }
+                        else
+                        {
+                            this.eirection = Eirection.down_left;
+                            location = new Point(location.X - move_step, location.Y + move_step);
+                        }
+                    else
+                    {
+                        this.eirection = Eirection.down_left;
+                        location = new Point(location.X - move_step, location.Y + move_step);
+                    }
+                    break;
+                case Eirection.right:
                     if (location.X + move_step <= point_zero_to_fild.X + size_field.Width - 100)
                         location = new Point(location.X + move_step, location.Y);
                     else
+                    {
+                        this.eirection = Eirection.left;
                         location = new Point(location.X - move_step, location.Y);
+                    }
                     break;
-                case 1:
+                case Eirection.right_down:
+                    if (location.Y + move_step <= point_zero_to_fild.Y + size_field.Height - 120)
+                        if (location.X + move_step <= point_zero_to_fild.X + size_field.Width - 100)
+                        {
+                            location = new Point(location.X + move_step, location.Y + move_step);
+                        }
+                        else
+                        {
+                            this.eirection = Eirection.down_left;
+                            location = new Point(location.X - move_step, location.Y - move_step);
+                        }
+                    else
+                    {
+                        this.eirection = Eirection.down_left;
+                        location = new Point(location.X - move_step, location.Y - move_step);
+                    }
+                    break;
+                case Eirection.down:
                     if (location.Y + move_step <= point_zero_to_fild.Y + size_field.Height - 120)
                         location = new Point(location.X, location.Y + move_step);
                     else
+                    {
+                        this.eirection = Eirection.up;
                         location = new Point(location.X, location.Y - move_step);
+                    }
                     break;
-                case 2:
-                    if (location.X - move_step >= point_zero_to_fild.X + 70)
+                case Eirection.down_left:
+                    if (location.Y + move_step <= point_zero_to_fild.Y + size_field.Height - 120)
+                        if (location.X - move_step >= point_zero_to_fild.X + 50)
+                        {
+                            location = new Point(location.X - move_step, location.Y + move_step);
+                        }
+                        else
+                        {
+                            this.eirection = Eirection.up_right;
+                            location = new Point(location.X + move_step, location.Y - move_step);
+                        }
+                    else
+                    {
+                        this.eirection = Eirection.up_right;
+                        location = new Point(location.X + move_step, location.Y - move_step);
+                    }
+                    break;
+                case Eirection.left:
+                    if (location.X - move_step >= point_zero_to_fild.X + 50)
                         location = new Point(location.X - move_step, location.Y);
                     else
+                    {
+                        this.eirection = Eirection.right;
                         location = new Point(location.X + move_step, location.Y);
+                    }
                     break;
-                case 3:
-                    if (location.Y - move_step >= point_zero_to_fild.Y + 50)
-                        location = new Point(location.X, location.Y - move_step);
+                case Eirection.left_up:
+                    if (location.Y - move_step >= point_zero_to_fild.Y + 20)
+                        if (location.X - move_step >= point_zero_to_fild.X + 50)
+                        {
+                            location = new Point(location.X - move_step, location.Y - move_step);
+                        }
+                        else
+                        {
+                            this.eirection = Eirection.right_down;
+                            location = new Point(location.X + move_step, location.Y + move_step);
+                        }
                     else
-                        location = new Point(location.X, location.Y + move_step);
+                    {
+                        this.eirection = Eirection.right_down;
+                        location = new Point(location.X + move_step, location.Y + move_step);
+                    }
                     break;
-
                 default:
                     break;
             }
@@ -154,13 +280,14 @@ namespace Cell_life.Cell_Model.Cell_Base
         {          
             lock (this)
             {
+               
                 for (int i = vision - (vision * 2); i <= (vision * 2) + 1; i++)
                 {
                     for (int j = vision - (vision * 2); j <= (vision * 2) + 1; j++)
                     {
-                        if (Cell_Genome.foods.Exists(q => q.location.X == location.X + i & q.location.Y == location.Y + j))
+                        if (Cells.foods.Exists(q => q.location.X == location.X + i & q.location.Y == location.Y + j))
                         {    
-                            found_food = Cell_Genome.foods.Find(q => q.location.X == location.X + i & q.location.Y == location.Y + j);
+                            found_food = Cells.foods.Find(q => q.location.X == location.X + i & q.location.Y == location.Y + j);
                             break;
                         }
                     }
@@ -181,7 +308,7 @@ namespace Cell_life.Cell_Model.Cell_Base
                         Eat(found_food);
                 }
                 else
-                    No_Food_Move(point_zero_to_fild, size_field);
+                    No_Food_Move(point_zero_to_fild, size_field, eirection);
             }
         }
         public void Old()
