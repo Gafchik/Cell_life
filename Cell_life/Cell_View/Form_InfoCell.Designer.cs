@@ -30,59 +30,43 @@ namespace Cell_life.Cell_View
         private void InitializeComponent()
         {
             this.panel_data = new System.Windows.Forms.Panel();
-            this.Id_Parent_textBox = new System.Windows.Forms.TextBox();
             this.Time_to_Dead_textBox = new System.Windows.Forms.TextBox();
             this.Cout_Child_textBox = new System.Windows.Forms.TextBox();
             this.Id_Child_textBox = new System.Windows.Forms.TextBox();
             this.Eat_textBox = new System.Windows.Forms.TextBox();
             this.color_textBox = new System.Windows.Forms.TextBox();
-            this.Time_live_genom_textBox = new System.Windows.Forms.TextBox();
             this.time_live_textBox = new System.Windows.Forms.TextBox();
             this.Id_textBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button_KILL = new System.Windows.Forms.Button();
             this.button_Eat = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.button_Child = new System.Windows.Forms.Button();
             this.panel_data.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_data
             // 
-            this.panel_data.Controls.Add(this.Id_Parent_textBox);
             this.panel_data.Controls.Add(this.Time_to_Dead_textBox);
             this.panel_data.Controls.Add(this.Cout_Child_textBox);
             this.panel_data.Controls.Add(this.Id_Child_textBox);
             this.panel_data.Controls.Add(this.Eat_textBox);
             this.panel_data.Controls.Add(this.color_textBox);
-            this.panel_data.Controls.Add(this.Time_live_genom_textBox);
             this.panel_data.Controls.Add(this.time_live_textBox);
             this.panel_data.Controls.Add(this.Id_textBox);
             this.panel_data.Location = new System.Drawing.Point(150, 12);
             this.panel_data.Name = "panel_data";
-            this.panel_data.Size = new System.Drawing.Size(189, 391);
+            this.panel_data.Size = new System.Drawing.Size(189, 280);
             this.panel_data.TabIndex = 36;
-            // 
-            // Id_Parent_textBox
-            // 
-            this.Id_Parent_textBox.Location = new System.Drawing.Point(15, 222);
-            this.Id_Parent_textBox.Multiline = true;
-            this.Id_Parent_textBox.Name = "Id_Parent_textBox";
-            this.Id_Parent_textBox.ReadOnly = true;
-            this.Id_Parent_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Id_Parent_textBox.Size = new System.Drawing.Size(152, 76);
-            this.Id_Parent_textBox.TabIndex = 38;
             // 
             // Time_to_Dead_textBox
             // 
-            this.Time_to_Dead_textBox.Location = new System.Drawing.Point(15, 149);
+            this.Time_to_Dead_textBox.Location = new System.Drawing.Point(15, 123);
             this.Time_to_Dead_textBox.Name = "Time_to_Dead_textBox";
             this.Time_to_Dead_textBox.ReadOnly = true;
             this.Time_to_Dead_textBox.Size = new System.Drawing.Size(152, 20);
@@ -91,7 +75,7 @@ namespace Cell_life.Cell_View
             // 
             // Cout_Child_textBox
             // 
-            this.Cout_Child_textBox.Location = new System.Drawing.Point(15, 180);
+            this.Cout_Child_textBox.Location = new System.Drawing.Point(15, 154);
             this.Cout_Child_textBox.Name = "Cout_Child_textBox";
             this.Cout_Child_textBox.ReadOnly = true;
             this.Cout_Child_textBox.Size = new System.Drawing.Size(152, 20);
@@ -100,7 +84,7 @@ namespace Cell_life.Cell_View
             // 
             // Id_Child_textBox
             // 
-            this.Id_Child_textBox.Location = new System.Drawing.Point(15, 312);
+            this.Id_Child_textBox.Location = new System.Drawing.Point(15, 190);
             this.Id_Child_textBox.Multiline = true;
             this.Id_Child_textBox.Name = "Id_Child_textBox";
             this.Id_Child_textBox.ReadOnly = true;
@@ -110,7 +94,7 @@ namespace Cell_life.Cell_View
             // 
             // Eat_textBox
             // 
-            this.Eat_textBox.Location = new System.Drawing.Point(15, 123);
+            this.Eat_textBox.Location = new System.Drawing.Point(15, 97);
             this.Eat_textBox.Name = "Eat_textBox";
             this.Eat_textBox.ReadOnly = true;
             this.Eat_textBox.Size = new System.Drawing.Size(152, 20);
@@ -119,21 +103,12 @@ namespace Cell_life.Cell_View
             // 
             // color_textBox
             // 
-            this.color_textBox.Location = new System.Drawing.Point(15, 97);
+            this.color_textBox.Location = new System.Drawing.Point(15, 71);
             this.color_textBox.Name = "color_textBox";
             this.color_textBox.ReadOnly = true;
             this.color_textBox.Size = new System.Drawing.Size(152, 20);
             this.color_textBox.TabIndex = 18;
             this.color_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // Time_live_genom_textBox
-            // 
-            this.Time_live_genom_textBox.Location = new System.Drawing.Point(15, 71);
-            this.Time_live_genom_textBox.Name = "Time_live_genom_textBox";
-            this.Time_live_genom_textBox.ReadOnly = true;
-            this.Time_live_genom_textBox.Size = new System.Drawing.Size(152, 20);
-            this.Time_live_genom_textBox.TabIndex = 17;
-            this.Time_live_genom_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // time_live_textBox
             // 
@@ -157,7 +132,7 @@ namespace Cell_life.Cell_View
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Blue;
-            this.label7.Location = new System.Drawing.Point(14, 347);
+            this.label7.Location = new System.Drawing.Point(12, 230);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(129, 13);
             this.label7.TabIndex = 35;
@@ -167,7 +142,7 @@ namespace Cell_life.Cell_View
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Blue;
-            this.label6.Location = new System.Drawing.Point(14, 164);
+            this.label6.Location = new System.Drawing.Point(14, 138);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 13);
             this.label6.TabIndex = 34;
@@ -177,7 +152,7 @@ namespace Cell_life.Cell_View
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Blue;
-            this.label5.Location = new System.Drawing.Point(16, 138);
+            this.label5.Location = new System.Drawing.Point(16, 112);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 33;
@@ -187,21 +162,11 @@ namespace Cell_life.Cell_View
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Blue;
-            this.label4.Location = new System.Drawing.Point(16, 112);
+            this.label4.Location = new System.Drawing.Point(16, 86);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 32;
             this.label4.Text = "Цвет поколения ";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(16, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 13);
-            this.label3.TabIndex = 31;
-            this.label3.Text = "Время жизни рода";
             // 
             // label2
             // 
@@ -217,7 +182,7 @@ namespace Cell_life.Cell_View
             // 
             this.button_KILL.BackColor = System.Drawing.Color.Red;
             this.button_KILL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_KILL.Location = new System.Drawing.Point(256, 458);
+            this.button_KILL.Location = new System.Drawing.Point(256, 311);
             this.button_KILL.Name = "button_KILL";
             this.button_KILL.Size = new System.Drawing.Size(94, 43);
             this.button_KILL.TabIndex = 29;
@@ -228,7 +193,7 @@ namespace Cell_life.Cell_View
             // 
             this.button_Eat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.button_Eat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Eat.Location = new System.Drawing.Point(35, 458);
+            this.button_Eat.Location = new System.Drawing.Point(35, 311);
             this.button_Eat.Name = "button_Eat";
             this.button_Eat.Size = new System.Drawing.Size(94, 43);
             this.button_Eat.TabIndex = 28;
@@ -249,27 +214,17 @@ namespace Cell_life.Cell_View
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.Blue;
-            this.label8.Location = new System.Drawing.Point(14, 195);
+            this.label8.Location = new System.Drawing.Point(14, 169);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(118, 13);
             this.label8.TabIndex = 38;
             this.label8.Text = "Количество потомков";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.Blue;
-            this.label9.Location = new System.Drawing.Point(16, 258);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(126, 13);
-            this.label9.TabIndex = 39;
-            this.label9.Text = "Id-торы всех родителей";
-            // 
             // button_Child
             // 
             this.button_Child.BackColor = System.Drawing.Color.Magenta;
             this.button_Child.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Child.Location = new System.Drawing.Point(146, 458);
+            this.button_Child.Location = new System.Drawing.Point(146, 311);
             this.button_Child.Name = "button_Child";
             this.button_Child.Size = new System.Drawing.Size(94, 43);
             this.button_Child.TabIndex = 40;
@@ -280,16 +235,14 @@ namespace Cell_life.Cell_View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 513);
+            this.ClientSize = new System.Drawing.Size(375, 363);
             this.Controls.Add(this.button_Child);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.panel_data);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_KILL);
             this.Controls.Add(this.button_Eat);
@@ -307,26 +260,22 @@ namespace Cell_life.Cell_View
         #endregion
 
         private System.Windows.Forms.Panel panel_data;
-        private System.Windows.Forms.TextBox Id_Parent_textBox;
         private System.Windows.Forms.TextBox Time_to_Dead_textBox;
         private System.Windows.Forms.TextBox Cout_Child_textBox;
         private System.Windows.Forms.TextBox Id_Child_textBox;
         private System.Windows.Forms.TextBox Eat_textBox;
         private System.Windows.Forms.TextBox color_textBox;
-        private System.Windows.Forms.TextBox Time_live_genom_textBox;
         private System.Windows.Forms.TextBox time_live_textBox;
         private System.Windows.Forms.TextBox Id_textBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_KILL;
         private System.Windows.Forms.Button button_Eat;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button_Child;
     }
 }

@@ -14,27 +14,35 @@ namespace Cell_life.Cell_Control
 {
     class Cell_Conrol
     {
+       
         public void Create_genom(Color backColor, Point point)
         {
             lock (this)
             {
                 Cells.cells.Add(new Cell(Cells.cells.Count + 1, backColor, point));
             }
-        }
-        public void Kill_Cell(Cell cell)
-        {
+        }     
+        internal void Old()
+        { 
             lock (this)
             {
-                Cells.foods.Add(new Food(new Point(cell.location.X - 10, cell.location.Y + 10)));
-                Cells.cells.Remove(cell);
+                try                 
+                {
+                    //Cells.cells.ForEach(i => i.Get_Child());
+                    Cells.cells.ForEach(i => i.Old()); 
+                    Cells.cells.ForEach(i => i.Next_Move()); 
+                } 
+                catch (Exception) { } 
             }
         }
-        internal void Old() { lock (this) { try { Cells.cells.ForEach(i => i.Old()); } catch (Exception) { } } }
         internal void Mowe(Point point_zero_to_fild, Size size_field)
         {
             lock (this)
            {
-                try { Cells.cells.ForEach(i => i.Move(point_zero_to_fild, size_field)); }
+                try
+                {   
+                    Cells.cells.ForEach(i => i.Move(point_zero_to_fild, size_field));
+                }
                 catch (Exception) { }
             }
         }
@@ -55,21 +63,7 @@ namespace Cell_life.Cell_Control
                     }
                 }
             }
-        }
-        internal void Serch_Food()
-        {
-            lock (this)
-            {
-                Cells.cells.ForEach(i => i.Search_Eat());
-            }
-        }
-        internal void Eat(Food food)
-         {
-            lock (this)
-            {
-                Cells.foods.Remove(food);
-           }
-        }
+        }    
         internal void Kill_All()
         {
            lock (this)

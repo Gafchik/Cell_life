@@ -19,6 +19,7 @@ namespace Cell_life
     {
 
         readonly SolidBrush Brash_life;
+        readonly SolidBrush Brash_medium;
         readonly SolidBrush Brash_foot;
         readonly SolidBrush Brash_die;
         Cell_Conrol control;
@@ -29,37 +30,45 @@ namespace Cell_life
             panel_color.BackColor = Color.Black;
             control = new Cell_Conrol();
             button_color.Click += Button_color_Click;
-            //  DoubleBuffered = true;
+            DoubleBuffered = true;
             Brash_life = new SolidBrush(panel_color.BackColor);
             Brash_die = new SolidBrush(Color.Red);
             Brash_foot = new SolidBrush(Color.Green);
+            Brash_medium = new SolidBrush(Color.Orange);
             panel_game.MouseClick += Panel_game_MouseClick;
             panel_game.Paint += Panel_game_Paint;
             button_Kill_All.Click += Button_Kill_All_Click;
 
             Timer timer_move = new Timer();
             timer_move.Tick += Timer_move_Tick;
-            timer_move.Interval = 50;
+            timer_move.Interval = 100;
             timer_move.Start();
 
+            Timer timer_leave = new Timer();
+            timer_leave.Tick += Timer_leave_Tick;
+            timer_leave.Interval = 1000;
+            timer_leave.Start();
 
 
         }
 
+        private void Timer_leave_Tick(object sender, EventArgs e) => control.Old();
+        
+       
 
         private void Button_Kill_All_Click(object sender, EventArgs e) => control.Kill_All();
         private void Timer_move_Tick(object sender, EventArgs e)
         {
             lock (this)
             {
-                panel_game.Refresh();
                 control.Mowe(panel_game.PointToScreen(panel_game.Location), panel_game.Size);
+                panel_game.Refresh();
             }
         }
         private void Panel_game_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                control.Create_genom(panel_color.BackColor, panel_game.PointToClient(Cursor.Position));
+                Cells.cells.Add(new Cell (Cells.cells.Count + 1,/*control.Create_genom(*/panel_color.BackColor, panel_game.PointToClient(Cursor.Position)));
             if (e.Button == MouseButtons.Right)
                 control.Get_Cell_Info(panel_game.PointToClient(Cursor.Position));
             if (e.Button == MouseButtons.Middle)
@@ -67,22 +76,22 @@ namespace Cell_life
         }
         private  void Panel_game_Paint(object sender, PaintEventArgs e)
         {
-            lock (this)
-            {
+            
                 foreach (Food eat in Cells.foods)
                 {
                     e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
-                }
-            }
-            lock (this)
-            {
+                }                    
                 foreach (Cell cell in Cells.cells)
                 {
                     Brash_life.Color = cell.color_leve;
                     Brash_die.Color = cell.color_died;
-                    e.Graphics.FillEllipse(cell.Age < cell.time_life - 2 ? Brash_life : Brash_die, new Rectangle(cell.location, cell.size));
+                Brash_medium.Color = cell.color_medium;
+                    e.Graphics.FillEllipse(cell.Age < cell.time_life - 10 ?
+                        Brash_life : cell.Age < cell.time_life - 15 ?
+                       Brash_medium: Brash_die,
+                        new Rectangle(cell.location, cell.size));
                 }
-            }
+           
         }
         private void Button_color_Click(object sender, EventArgs e)
         {

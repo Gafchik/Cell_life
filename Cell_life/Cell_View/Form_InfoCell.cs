@@ -49,14 +49,8 @@ namespace Cell_life.Cell_View
 
         }
 
-        private void Button_Child_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < This_cell.Get_Cout_Generation(); i++)
-            {
-                Cells.cells.Add(new Cell(Cells.cells.Count + 1, This_cell.color_leve, new Point(This_cell.location.X + 1, This_cell.location.Y + 1)));
-                This_cell.id_childs.Add(Cells.cells.Count);
-            }
-        }
+        private void Button_Child_Click(object sender, EventArgs e) => This_cell.Get_Child();
+       
 
 
         private void Button_Eat_Click(object sender, EventArgs e) => This_cell.Feed();
