@@ -19,9 +19,9 @@ namespace Cell_life
     {
 
         readonly SolidBrush Brash_life;
-        readonly SolidBrush Brash_medium;
+
         readonly SolidBrush Brash_foot;
-        readonly SolidBrush Brash_die;
+
         Cell_Conrol control;
 
         public Form1()
@@ -31,10 +31,8 @@ namespace Cell_life
             control = new Cell_Conrol();
             button_color.Click += Button_color_Click;
             DoubleBuffered = true;
-            Brash_life = new SolidBrush(panel_color.BackColor);
-            Brash_die = new SolidBrush(Color.Red);
-            Brash_foot = new SolidBrush(Color.Green);
-            Brash_medium = new SolidBrush(Color.Orange);
+            Brash_life = new SolidBrush(panel_color.BackColor);        
+            Brash_foot = new SolidBrush(Color.Green);       
             panel_game.MouseClick += Panel_game_MouseClick;
             panel_game.Paint += Panel_game_Paint;
             button_Kill_All.Click += Button_Kill_All_Click;
@@ -76,21 +74,16 @@ namespace Cell_life
         }
         private  void Panel_game_Paint(object sender, PaintEventArgs e)
         {
-            
-                foreach (Food eat in Cells.foods)
-                {
-                    e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
-                }                    
-                foreach (Cell cell in Cells.cells)
-                {
-                    Brash_life.Color = cell.color_leve;
-                    Brash_die.Color = cell.color_died;
-                Brash_medium.Color = cell.color_medium;
-                    e.Graphics.FillEllipse(cell.Age < cell.time_life - 10 ?
-                        Brash_life : cell.Age < cell.time_life - 15 ?
-                       Brash_medium: Brash_die,
-                        new Rectangle(cell.location, cell.size));
-                }
+
+            foreach (Food eat in Cells.foods)
+            {
+                e.Graphics.FillEllipse(Brash_foot, new Rectangle(eat.location, eat.size));
+            }
+            foreach (Cell cell in Cells.cells)
+            {
+                Brash_life.Color = cell.color;
+                e.Graphics.FillEllipse(Brash_life, new Rectangle(cell.location, cell.size));
+            }
            
         }
         private void Button_color_Click(object sender, EventArgs e)

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Cell_life.Cell_Control
 {
     class Cell_Conrol
@@ -29,7 +30,7 @@ namespace Cell_life.Cell_Control
                 try                 
                 {
                     //Cells.cells.ForEach(i => i.Get_Child());
-                   // Cells.cells.ForEach(i => i.Old()); 
+                    Cells.cells.ForEach(i => i.Old()); 
                     Cells.cells.ForEach(i => i.Next_Move()); 
                 } 
                 catch (Exception) { } 
@@ -82,9 +83,15 @@ namespace Cell_life.Cell_Control
             else
             {
                 if (cell.HP <= 0)
+                {
+
                     cell.Die();
+                }
                 if (cell_enemy.HP <= 0)
+                {
+
                     cell_enemy.Die();
+                }
             }
         }
     }

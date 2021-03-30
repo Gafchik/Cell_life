@@ -25,7 +25,7 @@ namespace Cell_life.Cell_View
         {
             InitializeComponent();
             This_cell = cell;
-            color = cell.color_leve;
+            color = cell.color;
 
             // Id_Parent_textBox
             Time_to_Dead_textBox.Text = This_cell.time_to_death.ToString();
@@ -41,6 +41,9 @@ namespace Cell_life.Cell_View
             button_Eat.Click += Button_Eat_Click;
             button_Child.Click += Button_Child_Click;
 
+            HP_Bar.Value = This_cell.HP;
+            HP_Bar.Maximum = 100;
+            HP_Bar.Minimum = 0;
 
             Timer timer_up_data = new Timer();
             timer_up_data.Tick += Timer_up_data_Tick;
@@ -66,7 +69,7 @@ namespace Cell_life.Cell_View
             Cout_Child_textBox.Text = This_cell.id_childs.Count.ToString();
             Id_Child_textBox.Text = "";
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
-            HP_textBox.Text = This_cell.HP.ToString();
+            try { HP_Bar.Value = This_cell.HP; } catch (Exception) { HP_Bar.Value = 0; }
             color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
             time_live_textBox.Text = This_cell.time_life.ToString();
             Id_textBox.Text = This_cell.id.ToString();

@@ -33,7 +33,6 @@ namespace Cell_life.Cell_View
             this.Time_to_Dead_textBox = new System.Windows.Forms.TextBox();
             this.Cout_Child_textBox = new System.Windows.Forms.TextBox();
             this.Id_Child_textBox = new System.Windows.Forms.TextBox();
-            this.HP_textBox = new System.Windows.Forms.TextBox();
             this.color_textBox = new System.Windows.Forms.TextBox();
             this.time_live_textBox = new System.Windows.Forms.TextBox();
             this.Id_textBox = new System.Windows.Forms.TextBox();
@@ -47,15 +46,16 @@ namespace Cell_life.Cell_View
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.button_Child = new System.Windows.Forms.Button();
+            this.HP_Bar = new System.Windows.Forms.ProgressBar();
             this.panel_data.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_data
             // 
+            this.panel_data.Controls.Add(this.HP_Bar);
             this.panel_data.Controls.Add(this.Time_to_Dead_textBox);
             this.panel_data.Controls.Add(this.Cout_Child_textBox);
             this.panel_data.Controls.Add(this.Id_Child_textBox);
-            this.panel_data.Controls.Add(this.HP_textBox);
             this.panel_data.Controls.Add(this.color_textBox);
             this.panel_data.Controls.Add(this.time_live_textBox);
             this.panel_data.Controls.Add(this.Id_textBox);
@@ -91,15 +91,6 @@ namespace Cell_life.Cell_View
             this.Id_Child_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Id_Child_textBox.Size = new System.Drawing.Size(152, 76);
             this.Id_Child_textBox.TabIndex = 21;
-            // 
-            // HP_textBox
-            // 
-            this.HP_textBox.Location = new System.Drawing.Point(15, 97);
-            this.HP_textBox.Name = "HP_textBox";
-            this.HP_textBox.ReadOnly = true;
-            this.HP_textBox.Size = new System.Drawing.Size(152, 20);
-            this.HP_textBox.TabIndex = 19;
-            this.HP_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // color_textBox
             // 
@@ -231,6 +222,13 @@ namespace Cell_life.Cell_View
             this.button_Child.Text = "Сделать детей";
             this.button_Child.UseVisualStyleBackColor = false;
             // 
+            // HP_Bar
+            // 
+            this.HP_Bar.Location = new System.Drawing.Point(15, 100);
+            this.HP_Bar.Name = "HP_Bar";
+            this.HP_Bar.Size = new System.Drawing.Size(152, 17);
+            this.HP_Bar.TabIndex = 38;
+            // 
             // Form_InfoCell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,7 +261,6 @@ namespace Cell_life.Cell_View
         private System.Windows.Forms.TextBox Time_to_Dead_textBox;
         private System.Windows.Forms.TextBox Cout_Child_textBox;
         private System.Windows.Forms.TextBox Id_Child_textBox;
-        private System.Windows.Forms.TextBox HP_textBox;
         private System.Windows.Forms.TextBox color_textBox;
         private System.Windows.Forms.TextBox time_live_textBox;
         private System.Windows.Forms.TextBox Id_textBox;
@@ -277,5 +274,6 @@ namespace Cell_life.Cell_View
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button_Child;
+        private System.Windows.Forms.ProgressBar HP_Bar;
     }
 }

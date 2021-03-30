@@ -16,7 +16,9 @@ namespace Cell_life.Model.Eat_Model
         {
             size = new Size(5, 5);
             color_leve = Color.Green;
-            callory = 3;
+            growth_HP = 10;
+            regen_HP = 20;
+            growth_damage = 1;
             location = point;
         }
         public int Step_to_Cell(Point point) => Convert.ToInt32(Math.Sqrt(
@@ -27,7 +29,9 @@ namespace Cell_life.Model.Eat_Model
         public Point location { get; set; }
         public Size size { get; set; }
         public Color color_leve { get; set; }
-        public int callory { get; set; }
+        public int growth_HP { get; set; }
+        public int growth_damage { get; set; }
+        public int regen_HP{ get; set; }
 
     }
 }
