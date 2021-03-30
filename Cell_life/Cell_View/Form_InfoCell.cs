@@ -66,7 +66,7 @@ namespace Cell_life.Cell_View
             Cout_Child_textBox.Text = This_cell.id_childs.Count.ToString();
             Id_Child_textBox.Text = "";
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
-            //Eat_textBox
+            HP_textBox.Text = This_cell.HP.ToString();
             color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
             time_live_textBox.Text = This_cell.time_life.ToString();
             Id_textBox.Text = This_cell.id.ToString();

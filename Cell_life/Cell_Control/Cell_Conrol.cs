@@ -29,7 +29,7 @@ namespace Cell_life.Cell_Control
                 try                 
                 {
                     //Cells.cells.ForEach(i => i.Get_Child());
-                    Cells.cells.ForEach(i => i.Old()); 
+                   // Cells.cells.ForEach(i => i.Old()); 
                     Cells.cells.ForEach(i => i.Next_Move()); 
                 } 
                 catch (Exception) { } 
@@ -70,6 +70,22 @@ namespace Cell_life.Cell_Control
             {
                 Cells.cells.Clear();
             }
-        } 
+        }
+
+        internal static void Fight(Cell cell, Cell cell_enemy)
+        {
+            if (cell.HP > 0 && cell_enemy.HP > 0)
+            {
+                cell.Hit(cell_enemy);
+                cell_enemy.Hit(cell);
+            }
+            else
+            {
+                if (cell.HP <= 0)
+                    cell.Die();
+                if (cell_enemy.HP <= 0)
+                    cell_enemy.Die();
+            }
+        }
     }
 }

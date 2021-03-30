@@ -33,7 +33,7 @@ namespace Cell_life.Cell_View
             this.Time_to_Dead_textBox = new System.Windows.Forms.TextBox();
             this.Cout_Child_textBox = new System.Windows.Forms.TextBox();
             this.Id_Child_textBox = new System.Windows.Forms.TextBox();
-            this.Eat_textBox = new System.Windows.Forms.TextBox();
+            this.HP_textBox = new System.Windows.Forms.TextBox();
             this.color_textBox = new System.Windows.Forms.TextBox();
             this.time_live_textBox = new System.Windows.Forms.TextBox();
             this.Id_textBox = new System.Windows.Forms.TextBox();
@@ -55,7 +55,7 @@ namespace Cell_life.Cell_View
             this.panel_data.Controls.Add(this.Time_to_Dead_textBox);
             this.panel_data.Controls.Add(this.Cout_Child_textBox);
             this.panel_data.Controls.Add(this.Id_Child_textBox);
-            this.panel_data.Controls.Add(this.Eat_textBox);
+            this.panel_data.Controls.Add(this.HP_textBox);
             this.panel_data.Controls.Add(this.color_textBox);
             this.panel_data.Controls.Add(this.time_live_textBox);
             this.panel_data.Controls.Add(this.Id_textBox);
@@ -92,14 +92,14 @@ namespace Cell_life.Cell_View
             this.Id_Child_textBox.Size = new System.Drawing.Size(152, 76);
             this.Id_Child_textBox.TabIndex = 21;
             // 
-            // Eat_textBox
+            // HP_textBox
             // 
-            this.Eat_textBox.Location = new System.Drawing.Point(15, 97);
-            this.Eat_textBox.Name = "Eat_textBox";
-            this.Eat_textBox.ReadOnly = true;
-            this.Eat_textBox.Size = new System.Drawing.Size(152, 20);
-            this.Eat_textBox.TabIndex = 19;
-            this.Eat_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.HP_textBox.Location = new System.Drawing.Point(15, 97);
+            this.HP_textBox.Name = "HP_textBox";
+            this.HP_textBox.ReadOnly = true;
+            this.HP_textBox.Size = new System.Drawing.Size(152, 20);
+            this.HP_textBox.TabIndex = 19;
+            this.HP_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // color_textBox
             // 
@@ -154,9 +154,9 @@ namespace Cell_life.Cell_View
             this.label5.ForeColor = System.Drawing.Color.Blue;
             this.label5.Location = new System.Drawing.Point(16, 112);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.Size = new System.Drawing.Size(22, 13);
             this.label5.TabIndex = 33;
-            this.label5.Text = "Съеденно еды";
+            this.label5.Text = "HP";
             // 
             // label4
             // 
@@ -263,7 +263,7 @@ namespace Cell_life.Cell_View
         private System.Windows.Forms.TextBox Time_to_Dead_textBox;
         private System.Windows.Forms.TextBox Cout_Child_textBox;
         private System.Windows.Forms.TextBox Id_Child_textBox;
-        private System.Windows.Forms.TextBox Eat_textBox;
+        private System.Windows.Forms.TextBox HP_textBox;
         private System.Windows.Forms.TextBox color_textBox;
         private System.Windows.Forms.TextBox time_live_textBox;
         private System.Windows.Forms.TextBox Id_textBox;

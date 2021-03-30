@@ -86,8 +86,10 @@ namespace Cell_life.Cell_Model.Cell_Base
             {
                 if (location != cell_enemy.location)
                     Move_to_Point(cell_enemy.location);
-                else;
-                   // Fight(cell_enemy);
+                else
+                    // Fight(cell_enemy);
+                    Cell_Conrol.Fight(this, cell_enemy);
+
             }
             else
             {
@@ -107,16 +109,14 @@ namespace Cell_life.Cell_Model.Cell_Base
 
         private void Fight(Cell cell_enemy)
         {
-            while (HP >= 0 || cell_enemy.HP >= 0)
-            {
-                Hit(cell_enemy);
-                if (HP <= 0)
-                    Die();               
-            }
+            Hit(cell_enemy);
+            if (HP < 0)
+                Die();
            
+
         }
 
-        public void Hit(Cell enemy) => enemy.HP = -damage;
+        public void Hit(Cell enemy) => enemy.HP -= damage;
         public void Old()
         {
             if (time_to_death != 0)
@@ -329,8 +329,8 @@ namespace Cell_life.Cell_Model.Cell_Base
             try
             {
                 Cells.cells.FindAll(i => i.Step_to_Cell(location) < vision&&
-                i.id != id&&
-                i.color_leve != color_leve).
+                i.id != id//&&
+               /* i.color_leve != color_leve*/).
                 ForEach(i => steps.Add(i.Step_to_Cell(location)));
                 int min_step = steps.Min<int>();
                 cell_enemy = Cells.cells.Find(i => i.Step_to_Cell(location) <= min_step);
