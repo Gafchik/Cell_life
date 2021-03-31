@@ -56,11 +56,22 @@ namespace Cell_life
             System.Windows.Forms.Timer timer_leave = new System.Windows.Forms.Timer();
             timer_leave.Tick += Timer_leave_Tick;
             timer_leave.Interval = 1000;
-            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}     Дратся с : {Cell_Conrol.fight_time}ти секунд";
+            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}";
 
             control = new Cell_Conrol(panel_game.PointToScreen(panel_game.Location), panel_game.Size, timer_move, timer_leave);
-
+            checkBox_fight.CheckState = CheckState.Unchecked;
+            checkBox_fight.CheckedChanged += CheckBox_fight_CheckedChanged;
         }
+
+        private void CheckBox_fight_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox t = (sender as CheckBox);
+            if (t.CheckState == CheckState.Checked)
+                Cell_Conrol.fight = true;
+            if (t.CheckState == CheckState.Unchecked)
+                Cell_Conrol.fight = false;
+        }
+        
 
         private void Timer_FPS_Tick(object sender, EventArgs e) => panel_game.Refresh();
 
@@ -116,7 +127,7 @@ namespace Cell_life
         private void button_stop_Click(object sender, EventArgs e) => control.Stop();
         private void Timer_leave_Tick(object sender, EventArgs e)
         {
-            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}     Дратся с : {Cell_Conrol.fight_time}ти секунд";
+            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}";
             control.Old();
         }
         private void Timer_move_Tick(object sender, EventArgs e)

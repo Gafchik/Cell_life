@@ -19,7 +19,7 @@ namespace Cell_life.Cell_Control
     {
         private static SpeechSynthesizer synth = new SpeechSynthesizer();
         private Random r = new Random();
-        public static bool fight = true;
+        public static bool fight = false;
         public static int time_game = 0;
         public  static  int fight_time = 30;
         private System.Windows.Forms.Timer timer_move;
@@ -64,10 +64,8 @@ namespace Cell_life.Cell_Control
             {
                 try                 
                 {
-                    time_game++;
-                    if (time_game >= fight_time)
-                        fight = true;
-                    //Cells.cells.ForEach(i => i.Get_Child());
+                    time_game++;                  
+                    Cells.cells.ForEach(i => i.Get_Child());
                     Cells.cells.ForEach(i => i.Next_Move()); 
                 } 
                 catch (Exception) { } 

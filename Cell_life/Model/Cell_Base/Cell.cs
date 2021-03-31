@@ -47,7 +47,7 @@ namespace Cell_life.Cell_Model.Cell_Base
             id_childs = new List<int>();
             this.color = color;
             move_step = 5;
-            vision = 300;
+            vision = 500;
             found_food = null;
             cell_enemy = null;
 
