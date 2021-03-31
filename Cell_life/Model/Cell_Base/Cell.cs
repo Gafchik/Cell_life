@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Speech.Synthesis;
+using System.Threading;
 
 namespace Cell_life.Cell_Model.Cell_Base
 {
@@ -22,8 +24,6 @@ namespace Cell_life.Cell_Model.Cell_Base
         public Point location { get; set; }
         public Size size { get; set; }
         public int Age { get; private set; }
-        public int time_life { get; private set; }
-        public int time_to_death { get; set; }
         public int count_food { get; private set; }
         public List<int> id_childs { get; set; }
         public Color color { get; set; }
@@ -32,10 +32,11 @@ namespace Cell_life.Cell_Model.Cell_Base
         public Food found_food { get; set; }
         public Cell cell_enemy { get; set; }
         public Eirection eirection { get; set; }
-
+      
 
         public Cell(int id, Color color, Point point)
         {
+           
             Max_HP = HP = 100;
             random = new Random();
             damage = random.Next(2,7);
@@ -46,7 +47,6 @@ namespace Cell_life.Cell_Model.Cell_Base
             count_food = 0;
             Age = 0;
             id_childs = new List<int>();
-
             this.color = color;
             move_step = 5;
             vision = 300;
@@ -55,7 +55,27 @@ namespace Cell_life.Cell_Model.Cell_Base
 
 
         }
-     
+
+        public Cell(Cell n_cell)
+        {
+            HP = n_cell.HP;
+            Max_HP = n_cell.Max_HP;
+            this.damage = n_cell.damage;
+            this.random = n_cell.random;
+            this.id = n_cell.id;
+            this.location = n_cell.location;
+            this.size = n_cell.size;
+            Age = n_cell.Age;
+            this.count_food = n_cell.count_food;
+            this.id_childs = n_cell.id_childs;
+            this.color = n_cell.color;
+            this.move_step = n_cell.move_step;
+            this.vision = n_cell.vision;
+            this.found_food = n_cell.found_food;
+            this.cell_enemy = n_cell.cell_enemy;
+            this.eirection = n_cell.eirection;
+        }
+
         public void Next_Move()=> eirection = (Eirection) random.Next(7);
         public void Get_Child()
         {
@@ -72,21 +92,45 @@ namespace Cell_life.Cell_Model.Cell_Base
                 catch (Exception) { }
             }
         }     
-        public void Feed() { time_life += 3; time_to_death += 3; }
+        public void Feed()
+        {
+            Max_HP += 10;
+            HP += 20;
+            if (HP > Max_HP)
+                HP = Max_HP;
+            damage += 1;
+           
+            size = new Size(size.Width + 1, size.Height + 1);
+        }
         public void Move(Point point_zero_to_fild, Size size_field)
         {
-            
-            Search_Enemy();
-            if (this.cell_enemy != null)
+            if (Cell_Conrol.fight)
             {
-                if (this.location.Equals(cell_enemy.location))
-                   Fight( cell_enemy);
+                Search_Enemy();
+                if (this.cell_enemy != null)
+                {
+                    if (this.location.Equals(cell_enemy.location))
+                        Fight(cell_enemy);
+                    else
+
+                        Move_to_Point(cell_enemy.location);
+                }
                 else
- 
-                    Move_to_Point(cell_enemy.location);
+                {
+                    Search_Food();
+                    if (found_food != null)
+                    {
+                        if (location != found_food.location)
+                            Move_to_Point(found_food.location);
+                        else
+                            Eat(found_food);
+                    }
+                    else
+                        No_Food_Move(point_zero_to_fild, size_field, eirection);
+                }
             }
             else
-            {               
+            {
                 Search_Food();
                 if (found_food != null)
                 {
@@ -111,12 +155,18 @@ namespace Cell_life.Cell_Model.Cell_Base
 
         public void Hit(Cell enemy) => enemy.HP -= damage;
         public void Old() => Age++;
-       
-  
+
+        public string Die_str()
+        {
+            string speak_string = $"{color.ToString().Replace("Color", "")} die";
+            return new String(speak_string.ToCharArray());
+        }
         public void Die()
         {
+           /* using (SpeechSynthesizer synth = new SpeechSynthesizer())
+            { synth.Speak(Die_str()); }*/
             Cells.foods.Add(new Food(new Point(this.location.X - 10, this.location.Y + 10)));
-            Cells.cells.Remove(this);           
+            Cells.cells.Remove(this);
         }
         private void Eat(Food food)
         {

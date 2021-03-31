@@ -27,13 +27,12 @@ namespace Cell_life.Cell_View
             This_cell = cell;
             color = cell.color;
 
-            // Id_Parent_textBox
-            Time_to_Dead_textBox.Text = This_cell.time_to_death.ToString();
+            damag_textBox.Text = This_cell.damage.ToString();
             Cout_Child_textBox.Text = This_cell.id_childs.Count.ToString();
+            Id_Child_textBox.Text = "";
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
-            //Eat_textBox
-            color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";          
-            time_live_textBox.Text = This_cell.time_life.ToString();
+            color_textBox.Text = color.ToString();
+            eat_food_textBox.Text = This_cell.count_food.ToString();
             Id_textBox.Text = This_cell.id.ToString();
 
 
@@ -41,8 +40,9 @@ namespace Cell_life.Cell_View
             button_Eat.Click += Button_Eat_Click;
             button_Child.Click += Button_Child_Click;
 
-            HP_Bar.Value = This_cell.HP;
-            HP_Bar.Maximum = 100;
+          
+            try { HP_Bar.Value = This_cell.HP; } catch (Exception) { HP_Bar.Value = 0; }
+            HP_Bar.Maximum = This_cell.Max_HP;
             HP_Bar.Minimum = 0;
 
             Timer timer_up_data = new Timer();
@@ -52,27 +52,27 @@ namespace Cell_life.Cell_View
 
         }
 
-        private void Button_Child_Click(object sender, EventArgs e) => This_cell.Get_Child();
-       
-
-
-        private void Button_Eat_Click(object sender, EventArgs e) => This_cell.Feed();
-       
-
-        private void Button_KILL_Click(object sender, EventArgs e) => This_cell.Die();
-       
-
+        private void Button_Child_Click(object sender, EventArgs e) => This_cell.Get_Child();      
+        private void Button_Eat_Click(object sender, EventArgs e) => This_cell.Feed();      
+        private void Button_KILL_Click(object sender, EventArgs e) => This_cell.Die();     
         private void Timer_up_data_Tick(object sender, EventArgs e)
         {
-            // Id_Parent_textBox
-            Time_to_Dead_textBox.Text = This_cell.time_to_death.ToString();
+           
+            damag_textBox.Text = This_cell.damage.ToString();
             Cout_Child_textBox.Text = This_cell.id_childs.Count.ToString();
             Id_Child_textBox.Text = "";
             This_cell.id_childs.ForEach(i => Id_Child_textBox.Text += i.ToString() + " ");
-            try { HP_Bar.Value = This_cell.HP; } catch (Exception) { HP_Bar.Value = 0; }
-            color_textBox.Text = $"R : {color.R}\tG : {color.G}\tB : {color.B}";
-            time_live_textBox.Text = This_cell.time_life.ToString();
+            color_textBox.Text = color.ToString();
+            eat_food_textBox.Text = This_cell.count_food.ToString();
             Id_textBox.Text = This_cell.id.ToString();
+            HP_Bar.Maximum = This_cell.Max_HP;          
+            try { HP_Bar.Value = This_cell.HP; } catch (Exception) { HP_Bar.Value = 0; }
+            if (HP_Bar.Value < HP_Bar.Maximum / 2)
+                HP_Bar.ForeColor = Color.Orange;
         }
+
+      
+
+      
     }
 }

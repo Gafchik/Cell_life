@@ -15,8 +15,40 @@ namespace Cell_life.Cell_Control
 {
     class Cell_Conrol
     {
-       
-        public void Create_genom(Color backColor, Point point)
+        private Random r = new Random();
+        public static bool fight = false;
+        public static int time_game = 0;
+        public  static  int fight_time = 30;
+        private Timer timer_move;
+        private Timer timer_leave;
+        private Timer timer_food;
+        Point point_zero_to_fild;
+        Size size_field;
+
+        public Cell_Conrol(Point point_zero_to_fild, Size size_field, Timer move,  Timer leave)
+        {
+            this.point_zero_to_fild = point_zero_to_fild;
+            this.size_field = size_field;
+
+           this.timer_move = move;
+           this.timer_leave = leave;
+            timer_food = new Timer();
+            timer_food.Interval = 1000;
+            timer_food.Tick += Timer_food_Tick;
+        }
+        private void Timer_food_Tick(object sender, EventArgs e) => Get_food(point_zero_to_fild,size_field);
+        private void Get_food(Point point_zero_to_fild, Size size_field)
+        {
+            End_Game();
+            if (!fight)
+            {
+                Cells.foods.Add(new Food(
+                    new Point(
+                        r.Next(50,point_zero_to_fild.X + size_field.Width - 100),
+                        r.Next(point_zero_to_fild.Y + size_field.Height - 120))));
+            }               
+        }
+        public void Create_cell(Color backColor, Point point)
         {
             lock (this)
             {
@@ -29,6 +61,9 @@ namespace Cell_life.Cell_Control
             {
                 try                 
                 {
+                    time_game++;
+                    if (time_game >= fight_time)
+                        fight = true;
                     //Cells.cells.ForEach(i => i.Get_Child());
                     Cells.cells.ForEach(i => i.Old()); 
                     Cells.cells.ForEach(i => i.Next_Move()); 
@@ -41,8 +76,8 @@ namespace Cell_life.Cell_Control
             lock (this)
            {
                 try
-                {   
-                    Cells.cells.ForEach(i => i.Move(point_zero_to_fild, size_field));
+                {
+                    Cells.cells.ForEach(i => i.Move(point_zero_to_fild, size_field));                   
                 }
                 catch (Exception) { }
             }
@@ -64,15 +99,30 @@ namespace Cell_life.Cell_Control
                     }
                 }
             }
-        }    
-        internal void Kill_All()
+        }
+        internal void Start()
+        {
+            timer_food.Start();
+            timer_move.Start();
+            timer_leave.Start();
+        }
+        internal void Pause()
+        {
+            timer_move.Stop();
+            timer_leave.Stop();
+        }
+        internal void Stop()
         {
            lock (this)
             {
                 Cells.cells.Clear();
+                Cells.foods.Clear();
+                timer_move.Stop();
+                timer_leave.Stop();
+                timer_food.Stop();
+
             }
         }
-
         internal static void Fight(Cell cell, Cell cell_enemy)
         {
             if (cell.HP > 0 && cell_enemy.HP > 0)
@@ -92,6 +142,16 @@ namespace Cell_life.Cell_Control
 
                     cell_enemy.Die();
                 }
+            }
+        }
+        private void End_Game()
+        {
+            Color win_color = Cells.cells.FirstOrDefault().color;
+            bool is_win = Cells.cells.All(i => i.color == win_color);
+            if(is_win)
+            {
+                Stop();
+                MessageBox.Show($"Победили {win_color.ToString().Replace("Color", "")}", "Конец игры", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
