@@ -32,6 +32,7 @@ namespace Cell_life.Cell_View
             this.panel_data = new System.Windows.Forms.Panel();
             this.HP_Bar = new System.Windows.Forms.ProgressBar();
             this.damag_textBox = new System.Windows.Forms.TextBox();
+            this.eat_food_textBox = new System.Windows.Forms.TextBox();
             this.Cout_Child_textBox = new System.Windows.Forms.TextBox();
             this.Id_Child_textBox = new System.Windows.Forms.TextBox();
             this.color_textBox = new System.Windows.Forms.TextBox();
@@ -46,7 +47,6 @@ namespace Cell_life.Cell_View
             this.label8 = new System.Windows.Forms.Label();
             this.button_Child = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.eat_food_textBox = new System.Windows.Forms.TextBox();
             this.panel_data.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,6 +79,15 @@ namespace Cell_life.Cell_View
             this.damag_textBox.Size = new System.Drawing.Size(152, 20);
             this.damag_textBox.TabIndex = 22;
             this.damag_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // eat_food_textBox
+            // 
+            this.eat_food_textBox.Location = new System.Drawing.Point(15, 97);
+            this.eat_food_textBox.Name = "eat_food_textBox";
+            this.eat_food_textBox.ReadOnly = true;
+            this.eat_food_textBox.Size = new System.Drawing.Size(152, 20);
+            this.eat_food_textBox.TabIndex = 41;
+            this.eat_food_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Cout_Child_textBox
             // 
@@ -133,9 +142,9 @@ namespace Cell_life.Cell_View
             this.label6.ForeColor = System.Drawing.Color.Blue;
             this.label6.Location = new System.Drawing.Point(16, 86);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 34;
-            this.label6.Text = "Урон";
+            this.label6.Text = "Сила удара";
             // 
             // label5
             // 
@@ -219,15 +228,6 @@ namespace Cell_life.Cell_View
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 42;
             this.label2.Text = "Седено еды";
-            // 
-            // eat_food_textBox
-            // 
-            this.eat_food_textBox.Location = new System.Drawing.Point(15, 97);
-            this.eat_food_textBox.Name = "eat_food_textBox";
-            this.eat_food_textBox.ReadOnly = true;
-            this.eat_food_textBox.Size = new System.Drawing.Size(152, 20);
-            this.eat_food_textBox.TabIndex = 41;
-            this.eat_food_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form_InfoCell
             // 
