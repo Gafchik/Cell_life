@@ -1,15 +1,9 @@
 ﻿using Cell_life.Cell_Control;
 using Cell_life.Model.Eat_Model;
-using Cell_life.Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Speech.Synthesis;
-using System.Threading;
 
 namespace Cell_life.Cell_Model.Cell_Base
 {

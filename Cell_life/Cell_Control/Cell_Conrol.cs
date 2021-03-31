@@ -3,14 +3,8 @@ using Cell_life.Cell_Model.Cell_Base;
 using Cell_life.Cell_View;
 using Cell_life.Model.Eat_Model;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Speech.Synthesis;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
