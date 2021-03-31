@@ -57,8 +57,8 @@
     </Compile>
     <Compile Include="Model\Cell_Base\Cell.cs" />
     <Compile Include="Model\Cell_Base\I_Cell.cs" />
-    <Compile Include="Model\Cell_Genom\Cells.cs" />
-    <Compile Include="Model\Cell_Genom\I_Cell_Genus.cs" />
+    <Compile Include="Model\Cells\Cells.cs" />
+    <Compile Include="Model\Cells\I_Cell_Genus.cs" />
     <Compile Include="Cell_View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

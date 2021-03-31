@@ -9,7 +9,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,11 +19,12 @@ namespace Cell_life
 {
     public partial class Form1 : Form
     {
-        Color color_paint;
+        //Dispatcher dispatcher;
+
+         Color color_paint;
         private SolidBrush Brash_life;
 
-        private SolidBrush Brash_foot;
-
+        private SolidBrush Brash_foot;      
         Cell_Conrol control;
 
         public Form1()
@@ -39,21 +42,21 @@ namespace Cell_life
             button_start.Click += Button_start_Click;
             Load += Form1_Load;
 
-            Timer timer_move = new Timer();
+            System.Windows.Forms.Timer timer_move = new  System.Windows.Forms.Timer();
             timer_move.Tick += Timer_move_Tick;
             timer_move.Interval = 100;
 
 
-            Timer timer_FPS = new Timer();
+            System.Windows.Forms.Timer timer_FPS = new System.Windows.Forms.Timer();
             timer_FPS.Tick += Timer_FPS_Tick; ;
             timer_FPS.Interval = 100;
             timer_FPS.Start();
 
 
-            Timer timer_leave = new Timer();
+            System.Windows.Forms.Timer timer_leave = new System.Windows.Forms.Timer();
             timer_leave.Tick += Timer_leave_Tick;
             timer_leave.Interval = 1000;
-            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}     Дратся с : {Cell_Conrol.fight_time} секунды";
+            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}     Дратся с : {Cell_Conrol.fight_time}ти секунд";
 
             control = new Cell_Conrol(panel_game.PointToScreen(panel_game.Location), panel_game.Size, timer_move, timer_leave);
 
@@ -74,7 +77,7 @@ namespace Cell_life
                     color_paint = Color.Red;
                     break;
                 case "Зеленый":
-                    color_paint = Color.DarkGreen;
+                    color_paint = Color.Green;
                     break;
                 case "Синий":
                     color_paint = Color.Blue;
@@ -98,7 +101,7 @@ namespace Cell_life
                     color_paint = Color.Red;
                     break;
                 case "Зеленый":
-                    color_paint = Color.DarkGreen;
+                    color_paint = Color.Green;
                     break;
                 case "Синий":
                     color_paint = Color.Blue;
@@ -113,7 +116,7 @@ namespace Cell_life
         private void button_stop_Click(object sender, EventArgs e) => control.Stop();
         private void Timer_leave_Tick(object sender, EventArgs e)
         {
-            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}     Дратся с : {Cell_Conrol.fight_time} секунды";
+            Text = $"Пройденое время : {Cell_Conrol.time_game}     Возможность дратся : {Cell_Conrol.fight}     Дратся с : {Cell_Conrol.fight_time}ти секунд";
             control.Old();
         }
         private void Timer_move_Tick(object sender, EventArgs e)
@@ -140,7 +143,6 @@ namespace Cell_life
                 e.Graphics.FillEllipse(Brash_life, new Rectangle(cell.location, cell.size));
             }
            
-        }
-       
+        }     
     }
 }

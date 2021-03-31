@@ -23,7 +23,6 @@ namespace Cell_life.Cell_Model.Cell_Base
         public int id { get; set; }
         public Point location { get; set; }
         public Size size { get; set; }
-        public int Age { get; private set; }
         public int count_food { get; private set; }
         public List<int> id_childs { get; set; }
         public Color color { get; set; }
@@ -45,7 +44,6 @@ namespace Cell_life.Cell_Model.Cell_Base
             location = new Point(point.X, point.Y);
             this.id = id;
             count_food = 0;
-            Age = 0;
             id_childs = new List<int>();
             this.color = color;
             move_step = 5;
@@ -65,7 +63,6 @@ namespace Cell_life.Cell_Model.Cell_Base
             this.id = n_cell.id;
             this.location = n_cell.location;
             this.size = n_cell.size;
-            Age = n_cell.Age;
             this.count_food = n_cell.count_food;
             this.id_childs = n_cell.id_childs;
             this.color = n_cell.color;
@@ -153,18 +150,15 @@ namespace Cell_life.Cell_Model.Cell_Base
                 Die();          
         }
 
-        public void Hit(Cell enemy) => enemy.HP -= damage;
-        public void Old() => Age++;
-
-        public string Die_str()
+        public void Hit(Cell enemy) => enemy.HP -= damage;     
+        public char[] Die_str()
         {
             string speak_string = $"{color.ToString().Replace("Color", "")} die";
-            return new String(speak_string.ToCharArray());
+            return  speak_string.ToCharArray();
         }
         public void Die()
-        {
-           /* using (SpeechSynthesizer synth = new SpeechSynthesizer())
-            { synth.Speak(Die_str()); }*/
+        {           
+            Cell_Conrol.Speak(Die_str());
             Cells.foods.Add(new Food(new Point(this.location.X - 10, this.location.Y + 10)));
             Cells.cells.Remove(this);
         }

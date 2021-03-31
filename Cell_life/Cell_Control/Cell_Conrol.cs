@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,24 +17,25 @@ namespace Cell_life.Cell_Control
 {
     class Cell_Conrol
     {
+        private static SpeechSynthesizer synth = new SpeechSynthesizer();
         private Random r = new Random();
-        public static bool fight = false;
+        public static bool fight = true;
         public static int time_game = 0;
         public  static  int fight_time = 30;
-        private Timer timer_move;
-        private Timer timer_leave;
-        private Timer timer_food;
+        private System.Windows.Forms.Timer timer_move;
+        private System.Windows.Forms.Timer timer_leave;
+        private System.Windows.Forms.Timer timer_food;
         Point point_zero_to_fild;
         Size size_field;
 
-        public Cell_Conrol(Point point_zero_to_fild, Size size_field, Timer move,  Timer leave)
+        public Cell_Conrol(Point point_zero_to_fild, Size size_field, System.Windows.Forms.Timer move,  System.Windows.Forms.Timer leave)
         {
             this.point_zero_to_fild = point_zero_to_fild;
             this.size_field = size_field;
 
            this.timer_move = move;
            this.timer_leave = leave;
-            timer_food = new Timer();
+            timer_food = new System.Windows.Forms.Timer();
             timer_food.Interval = 1000;
             timer_food.Tick += Timer_food_Tick;
         }
@@ -44,7 +47,7 @@ namespace Cell_life.Cell_Control
             {
                 Cells.foods.Add(new Food(
                     new Point(
-                        r.Next(50,point_zero_to_fild.X + size_field.Width - 100),
+                        r.Next(70,point_zero_to_fild.X + size_field.Width - 100),
                         r.Next(point_zero_to_fild.Y + size_field.Height - 120))));
             }               
         }
@@ -65,7 +68,6 @@ namespace Cell_life.Cell_Control
                     if (time_game >= fight_time)
                         fight = true;
                     //Cells.cells.ForEach(i => i.Get_Child());
-                    Cells.cells.ForEach(i => i.Old()); 
                     Cells.cells.ForEach(i => i.Next_Move()); 
                 } 
                 catch (Exception) { } 
@@ -146,13 +148,30 @@ namespace Cell_life.Cell_Control
         }
         private void End_Game()
         {
-            Color win_color = Cells.cells.FirstOrDefault().color;
-            bool is_win = Cells.cells.All(i => i.color == win_color);
-            if(is_win)
+            try
             {
-                Stop();
-                MessageBox.Show($"Победили {win_color.ToString().Replace("Color", "")}", "Конец игры", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Color win_color = Cells.cells.FirstOrDefault().color;
+                bool is_win = Cells.cells.All(i => i.color == win_color);
+                if (is_win)
+                {
+                    Stop();
+                    MessageBox.Show($"Победили {win_color.ToString().Replace("Color", "")}", "Конец игры", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
+            catch (Exception) { }
+           
+           
+        }
+        public static void Speak(char[] speak)
+        {
+
+
+            synth.Rate = 3;
+            void Speak(object o) => synth.Speak(o.ToString());
+            Thread myThread = new Thread(new ParameterizedThreadStart(Speak));
+            myThread.Start(new string(speak));
+
+
         }
     }
 }
