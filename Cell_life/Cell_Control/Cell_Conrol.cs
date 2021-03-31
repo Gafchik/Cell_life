@@ -4,6 +4,7 @@ using Cell_life.Cell_View;
 using Cell_life.Model.Eat_Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Speech.Synthesis;
@@ -16,8 +17,8 @@ using System.Windows.Forms;
 namespace Cell_life.Cell_Control
 {
     class Cell_Conrol
-    {
-        private static SpeechSynthesizer synth = new SpeechSynthesizer();
+    {      
+       
         private Random r = new Random();
         public static bool fight = false;
         public static int time_game = 0;
@@ -152,24 +153,12 @@ namespace Cell_life.Cell_Control
                 bool is_win = Cells.cells.All(i => i.color == win_color);
                 if (is_win)
                 {
-                    Stop();
+                    Stop();                   
                     MessageBox.Show($"Победили {win_color.ToString().Replace("Color", "")}", "Конец игры", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception) { }
-           
-           
         }
-        public static void Speak(char[] speak)
-        {
-
-
-            synth.Rate = 3;
-            void Speak(object o) => synth.Speak(o.ToString());
-            Thread myThread = new Thread(new ParameterizedThreadStart(Speak));
-            myThread.Start(new string(speak));
-
-
-        }
+      
     }
 }

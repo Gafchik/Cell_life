@@ -72,7 +72,6 @@ namespace Cell_life.Cell_Model.Cell_Base
             this.cell_enemy = n_cell.cell_enemy;
             this.eirection = n_cell.eirection;
         }
-
         public void Next_Move()=> eirection = (Eirection) random.Next(7);
         public void Get_Child()
         {
@@ -142,29 +141,22 @@ namespace Cell_life.Cell_Model.Cell_Base
             found_food = null;
             cell_enemy = null;
         }
-
         private void Fight(Cell cell_enemy)
         {
             Hit(cell_enemy);
             if (HP < 0)
                 Die();          
         }
-
-        public void Hit(Cell enemy) => enemy.HP -= damage;     
-        public char[] Die_str()
-        {
-            string speak_string = $"{color.ToString().Replace("Color", "")} die";
-            return  speak_string.ToCharArray();
-        }
+        public void Hit(Cell enemy) => enemy.HP -= damage;           
         public void Die()
-        {           
-            Cell_Conrol.Speak(Die_str());
+        {                      
             Cells.foods.Add(new Food(new Point(this.location.X - 10, this.location.Y + 10)));
             Cells.cells.Remove(this);
         }
         private void Eat(Food food)
         {
             Cells.foods.Remove(food);
+            count_food++;
             Max_HP += food.growth_HP;
             HP += food.regen_HP;
             if (HP > Max_HP)

@@ -77,6 +77,7 @@ namespace Cell_life
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            panel_game.BackColor = Color.Gray;
             Color_Box.Items.AddRange(new string[] { "Черный", "Красный", "Зеленый", "Синий" });
             Color_Box.SelectedIndex = 0;
             switch (Color_Box.SelectedItem.ToString())
@@ -98,7 +99,7 @@ namespace Cell_life
             }
             Color_Box.SelectedIndexChanged += Color_Box_SelectedIndexChanged;
             Brash_life = new SolidBrush(color_paint);
-            Brash_foot = new SolidBrush(Color.Green);
+            Brash_foot = new SolidBrush(Color.Orange);
         }
 
         private void Color_Box_SelectedIndexChanged(object sender, EventArgs e)
