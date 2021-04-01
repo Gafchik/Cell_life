@@ -14,16 +14,18 @@ namespace Cell_life.Cell_Control
     {      
        
         private Random r = new Random();
-        public static bool fight = false;
+        public static bool is_fight = false;
+        public static bool is_food = false;
+        public static bool is_child = false;
         public static int time_game = 0;
         public  static  int fight_time = 30;
-        private System.Windows.Forms.Timer timer_move;
-        private System.Windows.Forms.Timer timer_leave;
-        private System.Windows.Forms.Timer timer_food;
+        private Timer timer_move;
+        private Timer timer_leave;
+        private Timer timer_food;
         Point point_zero_to_fild;
         Size size_field;
 
-        public Cell_Conrol(Point point_zero_to_fild, Size size_field, System.Windows.Forms.Timer move,  System.Windows.Forms.Timer leave)
+        public Cell_Conrol(Point point_zero_to_fild, Size size_field, Timer move, Timer leave)
         {
             this.point_zero_to_fild = point_zero_to_fild;
             this.size_field = size_field;
@@ -31,14 +33,14 @@ namespace Cell_life.Cell_Control
            this.timer_move = move;
            this.timer_leave = leave;
             timer_food = new System.Windows.Forms.Timer();
-            timer_food.Interval = 1000;
+            timer_food.Interval = 2000;
             timer_food.Tick += Timer_food_Tick;
         }
         private void Timer_food_Tick(object sender, EventArgs e) => Get_food(point_zero_to_fild,size_field);
         private void Get_food(Point point_zero_to_fild, Size size_field)
         {
-            End_Game();
-            if (!fight)
+            End_Game(); Cells.cells.ForEach(i => i.Next_Move());
+            if (is_food)
             {
                 Cells.foods.Add(new Food(
                     new Point(
@@ -59,9 +61,9 @@ namespace Cell_life.Cell_Control
             {
                 try                 
                 {
-                    time_game++;                  
-                    Cells.cells.ForEach(i => i.Get_Child());
-                    Cells.cells.ForEach(i => i.Next_Move()); 
+                    time_game++;
+                    if (is_child)
+                        Cells.cells.ForEach(i => i.Get_Child());                
                 } 
                 catch (Exception) { } 
             }
@@ -110,6 +112,7 @@ namespace Cell_life.Cell_Control
         {
            lock (this)
             {
+                time_game = 0;
                 Cells.cells.Clear();
                 Cells.foods.Clear();
                 timer_move.Stop();
@@ -146,7 +149,7 @@ namespace Cell_life.Cell_Control
                 Color win_color = Cells.cells.FirstOrDefault().color;
                 bool is_win = Cells.cells.All(i => i.color == win_color);
                 if (is_win)
-                {
+                {  
                     Stop();                   
                     MessageBox.Show($"Победили {win_color.ToString().Replace("Color", "")}", "Конец игры", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

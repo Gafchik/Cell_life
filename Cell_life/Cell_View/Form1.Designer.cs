@@ -31,12 +31,14 @@ namespace Cell_life
         {
             this.panel_game = new System.Windows.Forms.Panel();
             this.panel_config = new System.Windows.Forms.Panel();
+            this.checkBox_fight = new System.Windows.Forms.CheckBox();
             this.button_pause = new System.Windows.Forms.Button();
             this.button_start = new System.Windows.Forms.Button();
             this.button_stop = new System.Windows.Forms.Button();
             this.Color_Box = new System.Windows.Forms.ComboBox();
             this.label_color = new System.Windows.Forms.Label();
-            this.checkBox_fight = new System.Windows.Forms.CheckBox();
+            this.checkBox_autoFood = new System.Windows.Forms.CheckBox();
+            this.checkBox_Child = new System.Windows.Forms.CheckBox();
             this.panel_config.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +61,8 @@ namespace Cell_life
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel_config.AutoSize = true;
             this.panel_config.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel_config.Controls.Add(this.checkBox_Child);
+            this.panel_config.Controls.Add(this.checkBox_autoFood);
             this.panel_config.Controls.Add(this.checkBox_fight);
             this.panel_config.Controls.Add(this.button_pause);
             this.panel_config.Controls.Add(this.button_start);
@@ -70,11 +74,24 @@ namespace Cell_life
             this.panel_config.Size = new System.Drawing.Size(155, 561);
             this.panel_config.TabIndex = 1;
             // 
+            // checkBox_fight
+            // 
+            this.checkBox_fight.AutoSize = true;
+            this.checkBox_fight.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_fight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox_fight.ForeColor = System.Drawing.Color.Blue;
+            this.checkBox_fight.Location = new System.Drawing.Point(5, 95);
+            this.checkBox_fight.Name = "checkBox_fight";
+            this.checkBox_fight.Size = new System.Drawing.Size(136, 17);
+            this.checkBox_fight.TabIndex = 8;
+            this.checkBox_fight.Text = "Разрешить дратся";
+            this.checkBox_fight.UseVisualStyleBackColor = true;
+            // 
             // button_pause
             // 
             this.button_pause.BackColor = System.Drawing.Color.Yellow;
             this.button_pause.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_pause.Location = new System.Drawing.Point(24, 210);
+            this.button_pause.Location = new System.Drawing.Point(26, 299);
             this.button_pause.Name = "button_pause";
             this.button_pause.Size = new System.Drawing.Size(94, 48);
             this.button_pause.TabIndex = 7;
@@ -85,7 +102,7 @@ namespace Cell_life
             // 
             this.button_start.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.button_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_start.Location = new System.Drawing.Point(24, 140);
+            this.button_start.Location = new System.Drawing.Point(26, 229);
             this.button_start.Name = "button_start";
             this.button_start.Size = new System.Drawing.Size(94, 48);
             this.button_start.TabIndex = 6;
@@ -96,7 +113,7 @@ namespace Cell_life
             // 
             this.button_stop.BackColor = System.Drawing.Color.Red;
             this.button_stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_stop.Location = new System.Drawing.Point(24, 279);
+            this.button_stop.Location = new System.Drawing.Point(26, 368);
             this.button_stop.Name = "button_stop";
             this.button_stop.Size = new System.Drawing.Size(94, 48);
             this.button_stop.TabIndex = 5;
@@ -122,18 +139,31 @@ namespace Cell_life
             this.label_color.TabIndex = 1;
             this.label_color.Text = "Выбраный цвет";
             // 
-            // checkBox_fight
+            // checkBox_autoFood
             // 
-            this.checkBox_fight.AutoSize = true;
-            this.checkBox_fight.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_fight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_fight.ForeColor = System.Drawing.Color.Blue;
-            this.checkBox_fight.Location = new System.Drawing.Point(5, 95);
-            this.checkBox_fight.Name = "checkBox_fight";
-            this.checkBox_fight.Size = new System.Drawing.Size(136, 17);
-            this.checkBox_fight.TabIndex = 8;
-            this.checkBox_fight.Text = "Разрешить дратся";
-            this.checkBox_fight.UseVisualStyleBackColor = true;
+            this.checkBox_autoFood.AutoSize = true;
+            this.checkBox_autoFood.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_autoFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox_autoFood.ForeColor = System.Drawing.Color.Blue;
+            this.checkBox_autoFood.Location = new System.Drawing.Point(18, 130);
+            this.checkBox_autoFood.Name = "checkBox_autoFood";
+            this.checkBox_autoFood.Size = new System.Drawing.Size(123, 17);
+            this.checkBox_autoFood.TabIndex = 9;
+            this.checkBox_autoFood.Text = "Авто кормление";
+            this.checkBox_autoFood.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_Child
+            // 
+            this.checkBox_Child.AutoSize = true;
+            this.checkBox_Child.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_Child.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox_Child.ForeColor = System.Drawing.Color.Blue;
+            this.checkBox_Child.Location = new System.Drawing.Point(33, 168);
+            this.checkBox_Child.Name = "checkBox_Child";
+            this.checkBox_Child.Size = new System.Drawing.Size(108, 17);
+            this.checkBox_Child.TabIndex = 10;
+            this.checkBox_Child.Text = "Размножение";
+            this.checkBox_Child.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -163,6 +193,8 @@ namespace Cell_life
         private System.Windows.Forms.Button button_start;
         private System.Windows.Forms.Button button_stop;
         private System.Windows.Forms.CheckBox checkBox_fight;
+        private System.Windows.Forms.CheckBox checkBox_autoFood;
+        private System.Windows.Forms.CheckBox checkBox_Child;
     }
 }
 

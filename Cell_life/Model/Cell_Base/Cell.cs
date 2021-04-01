@@ -94,7 +94,7 @@ namespace Cell_life.Cell_Model.Cell_Base
         }
         public void Move(Point point_zero_to_fild, Size size_field)
         {
-            if (Cell_Conrol.fight)
+            if (Cell_Conrol.is_fight)
             {
                 Search_Enemy();
                 if (this.cell_enemy != null)
