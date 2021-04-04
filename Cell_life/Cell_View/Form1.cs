@@ -9,21 +9,23 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace Cell_life
 {
     public partial class Form1 : Form
     {
-        //Dispatcher dispatcher;
-
-         Color color_paint;
+      
+        System.Drawing.Color r_color;
+        System.Drawing.Color color_paint;
         private SolidBrush Brash_life;
-
+        Random r;
         private SolidBrush Brash_foot;      
         Cell_Conrol control;
 
@@ -32,7 +34,7 @@ namespace Cell_life
             InitializeComponent();
 
 
-
+            r = new Random();
             DoubleBuffered = true;
 
             panel_game.MouseClick += Panel_game_MouseClick;
@@ -49,7 +51,7 @@ namespace Cell_life
 
             System.Windows.Forms.Timer timer_FPS = new System.Windows.Forms.Timer();
             timer_FPS.Tick += Timer_FPS_Tick; ;
-            timer_FPS.Interval = 30;
+            timer_FPS.Interval = 50;
             timer_FPS.Start();
 
 
@@ -101,48 +103,61 @@ namespace Cell_life
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            panel_game.BackColor = Color.Gray;
-            Color_Box.Items.AddRange(new string[] { "Черный", "Красный", "Зеленый", "Синий" });
+            panel_game.BackColor = System.Drawing.Color.Gray;          
+            r_color = Color.FromKnownColor((KnownColor)r.Next(0, typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
+                         .Select(c => (Color)c.GetValue(null, null))
+                         .ToList().Count));
+            MessageBox.Show("Рандомный цвет не остановить\nон так и будет менятся","Прочти Дибил",MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+
+
+            Color_Box.Items.AddRange(new string[] { "Черный", "Красный", "Зеленый", "Синий", $"{r_color}" }); ;
             Color_Box.SelectedIndex = 0;
             switch (Color_Box.SelectedItem.ToString())
             {
                 case "Черный":
-                    color_paint = Color.Black;
+                    color_paint = System.Drawing.Color.Black;
                     break;
                 case "Красный":
-                    color_paint = Color.Red;
+                    color_paint = System.Drawing.Color.Red;
                     break;
                 case "Зеленый":
-                    color_paint = Color.Green;
+                    color_paint = System.Drawing.Color.Green;
                     break;
                 case "Синий":
-                    color_paint = Color.Blue;
-                    break;
+                    color_paint = System.Drawing.Color.Blue;
+                    break;            
                 default:
+                    color_paint = r_color;
                     break;
             }
             Color_Box.SelectedIndexChanged += Color_Box_SelectedIndexChanged;
             Brash_life = new SolidBrush(color_paint);
-            Brash_foot = new SolidBrush(Color.Orange);
+            Brash_foot = new SolidBrush(System.Drawing.Color.Orange);
         }
 
         private void Color_Box_SelectedIndexChanged(object sender, EventArgs e)
         {
+          
+            r_color = Color.FromKnownColor((KnownColor)r.Next(0, typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
+                         .Select(c => (Color)c.GetValue(null, null))
+                         .ToList().Count));
             switch (Color_Box.SelectedItem.ToString())
             {
                 case "Черный":
-                    color_paint = Color.Black;
+                    color_paint = System.Drawing.Color.Black;
                     break;
                 case "Красный":
-                    color_paint = Color.Red;
+                    color_paint = System.Drawing.Color.Red;
                     break;
                 case "Зеленый":
-                    color_paint = Color.Green;
+                    color_paint = System.Drawing.Color.Green;
                     break;
                 case "Синий":
-                    color_paint = Color.Blue;
+                    color_paint = System.Drawing.Color.Blue;
                     break;
                 default:
+                    color_paint = r_color;
                     break;
             }
         }
@@ -152,14 +167,23 @@ namespace Cell_life
         private void button_stop_Click(object sender, EventArgs e) => control.Stop();
         private void Timer_leave_Tick(object sender, EventArgs e)
         {
+           
             Text = $"Пройденое время : {Cell_Conrol.time_game}";
             control.Old();
         }
         private void Timer_move_Tick(object sender, EventArgs e)
-        { lock (this) { control.Mowe(panel_game.PointToScreen(panel_game.Location), panel_game.Size); } }
+        {
+            lock (this) 
+            { 
+                control.Mowe(panel_game.PointToScreen(panel_game.Location), panel_game.Size);
+                color_paint = Color.FromKnownColor((KnownColor)r.Next(0, typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
+                            .Select(c => (Color)c.GetValue(null, null))
+                            .ToList().Count));
+                Color_Box.Items[4] = color_paint.ToString();
+            } }
         private void Panel_game_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)           
                 Cells.cells.Add(new Cell (Cells.cells.Count + 1, color_paint, panel_game.PointToClient(Cursor.Position)));
             if (e.Button == MouseButtons.Right)
                 control.Get_Cell_Info(panel_game.PointToClient(Cursor.Position));

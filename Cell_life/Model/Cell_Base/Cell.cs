@@ -10,6 +10,8 @@ namespace Cell_life.Cell_Model.Cell_Base
     public enum Eirection { up,up_right,right,right_down,down,down_left,left,left_up}
     public class Cell
     {
+        public int max_count_child { get; set; }
+        public int count_child { get; set; }
         public int HP { get; set; }
         public int Max_HP { get; set; }
         public int damage { get; set; }
@@ -29,15 +31,16 @@ namespace Cell_life.Cell_Model.Cell_Base
 
         public Cell(int id, Color color, Point point)
         {
-           
-            Max_HP = HP = 100;
+             Max_HP = HP = 100;
             random = new Random();
+            max_count_child = random.Next(0, 4);
             damage = random.Next(2,7);
             eirection = (Eirection)random.Next(7);
             size = new Size(10, 10);
             location = new Point(point.X, point.Y);
             this.id = id;
             count_food = 0;
+            count_child = 0;
             id_childs = new List<int>();
             this.color = color;
             move_step = 5;
@@ -71,15 +74,19 @@ namespace Cell_life.Cell_Model.Cell_Base
         {
             lock (this)
             {
-                try
+                if (count_child <= max_count_child)
                 {
-                    for (int i = 0; i < Get_Cout_Generation(); i++)
+                    try
                     {
-                        Cells.cells.Add(new Cell(Cells.cells.Count + 1, color, new Point(location.X + 1, location.Y + 1)));
-                        id_childs.Add(Cells.cells.Count);
+                        for (int i = 0; i < Get_Cout_Generation(); i++)
+                        {
+                            Cells.cells.Add(new Cell(Cells.cells.Count + 1, color, new Point(location.X + 1, location.Y + 1)));
+                            id_childs.Add(Cells.cells.Count);
+                        }
+                        count_child++;
                     }
+                    catch (Exception) { }
                 }
-                catch (Exception) { }
             }
         }     
         public void Feed()
